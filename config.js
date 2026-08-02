@@ -5,11 +5,11 @@ const CPU_COUNT = cpus().length
 
 Object.assign(globalThis, {
 
-   ownerName: '𝑣𝑖𝑡𝑎 - 𝑖𝑚𝑢𝑡', // ganti inii 
-   ownerNumber: '62xxx', // ganti ini nomor owner 
-   botName: '𝗒𝗎𝗄𝗂 𝖨𝗍𝗈𝗌𝖾', // ganti 
-   footer: '🍃 𝗒𝗎𝗄𝗂 𝖨𝗍𝗈𝗌𝖾', // ganti 
-   botNumber: '62xxx', // ganti ini nomor mu bot 
+   ownerName: 'Pipi', // ganti inii 
+   ownerNumber: '5573981832617', // ganti ini nomor owner 
+   botName: 'PIPIBOT', // ganti 
+   footer: '🍃 PIPIBOT', // ganti 
+   botNumber: '5573998376486', // ganti ini nomor mu bot 
 
    pairingCode: true, // ga usah gnti 
 
@@ -24,7 +24,7 @@ Object.assign(globalThis, {
    apiUser: '', // tinggal apiky mu klo ga ada ga usah biarin ae 
    apiSecret: '', // tinggal apiky mu klo ga ada ga usah biarin ae 
 
-   localTimezone: 'Asia/Jakarta',
+   localTimezone: 'America/Sao_Paulo',
 
    botThumbnail: './media/Image/thumbnail.jpg',
 
