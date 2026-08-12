@@ -104,6 +104,22 @@ nav.tabs button.active{background:linear-gradient(135deg,var(--gold),#d9a94e);co
   font-size:.76rem;color:var(--ink-dim);background:rgba(255,255,255,.06);
   border:1px solid var(--glass-bd);padding:7px 12px;border-radius:999px;cursor:pointer;
 }
+.mailbox{
+  position:relative;width:38px;height:34px;cursor:pointer;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:10px;background:rgba(255,255,255,.06);border:1px solid var(--glass-bd);
+  transition:transform .3s var(--ease);
+}
+.mailbox:hover{transform:translateY(-2px);}
+.mailbox svg{width:19px;height:19px;}
+.mailbox .count{
+  position:absolute;top:-7px;right:-7px;min-width:17px;height:17px;padding:0 4px;
+  background:linear-gradient(135deg,var(--rose),#e8497a);color:#fff;font-size:.62rem;font-weight:800;
+  border-radius:999px;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 8px -2px rgba(255,107,157,.6);
+}
+.mailbox.bump{animation:bump .5s var(--ease);}
+@keyframes bump{0%{transform:scale(1);}35%{transform:scale(1.28) rotate(-6deg);}100%{transform:scale(1);}}
 @media(max-width:880px){
   nav.tabs{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);z-index:60;box-shadow:var(--shadow-deep);}
   nav.tabs span.label{display:none;}
@@ -145,17 +161,26 @@ nav.tabs button.active{background:linear-gradient(135deg,var(--gold),#d9a94e);co
 }
 .scene-stage{width:100%;height:100%;position:relative;transform-style:preserve-3d;}
 .env{
-  position:absolute;width:210px;height:140px;left:50%;top:50%;
+  position:absolute;width:210px;height:140px;left:50%;top:50%;margin:-70px 0 0 -105px;
   transform-style:preserve-3d;
-  animation:float 7s ease-in-out infinite;
+  animation:float var(--dur,7s) ease-in-out infinite;
+  animation-delay:var(--delay,0s);
   will-change:transform;
 }
-.env.e1{margin:-70px 0 0 -160px;--seal:var(--gold);animation-delay:0s;}
-.env.e2{margin:-45px 0 0 10px;--seal:var(--rose);animation-delay:1.4s;transform:scale(.82) rotateZ(6deg);}
-.env.e3{margin:20px 0 0 -95px;--seal:var(--mint);animation-delay:2.6s;transform:scale(.7) rotateZ(-9deg);}
+/* each envelope has its own fixed 3D slot (--x/--y/--z) so the float
+   keyframes only ever nudge it around that slot instead of overwriting
+   a separate static transform — this is what stopped them crossing paths */
+.env.e1{--x:-158px;--y:-90px;--z:60px;--rz:-4deg;--sc:1;--dur:7.6s;--delay:0s;--seal:var(--gold);z-index:3;}
+.env.e2{--x:132px;--y:-12px;--z:-55px;--rz:7deg;--sc:.8;--dur:8.8s;--delay:1.1s;--seal:var(--rose);z-index:2;}
+.env.e3{--x:-52px;--y:104px;--z:15px;--rz:-9deg;--sc:.62;--dur:9.6s;--delay:2.2s;--seal:var(--mint);z-index:1;}
 @keyframes float{
-  0%,100%{transform:translateY(0) rotateZ(var(--rz,0deg)) rotateY(-8deg);}
-  50%{transform:translateY(-22px) rotateZ(calc(var(--rz,0deg) + 2deg)) rotateY(8deg);}
+  0%,100%{transform:translate3d(var(--x),var(--y),var(--z)) rotateZ(var(--rz)) rotateY(-10deg) scale(var(--sc));}
+  50%{transform:translate3d(var(--x), calc(var(--y) - 16px), calc(var(--z) + 22px)) rotateZ(calc(var(--rz) + 4deg)) rotateY(10deg) scale(var(--sc));}
+}
+@media(max-width:600px){
+  .env.e1{--x:-98px;--y:-62px;}
+  .env.e2{--x:86px;--y:-6px;}
+  .env.e3{--x:-30px;--y:74px;}
 }
 .env-body{
   position:absolute;inset:0;border-radius:14px;
@@ -243,6 +268,63 @@ main{max-width:1280px;margin:0 auto;padding:10px clamp(16px,5vw,60px) 120px;posi
   grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--ink-faint);
 }
 .empty .glyph{font-size:2.4rem;margin-bottom:10px;}
+
+/* destaque do dia */
+.destaque{
+  position:relative;padding:26px 26px 24px;margin-bottom:26px;overflow:hidden;
+  border:1px solid rgba(232,196,104,.35);
+}
+.destaque::before{
+  content:'';position:absolute;inset:-2px;border-radius:inherit;padding:2px;
+  background:conic-gradient(from var(--ang,0deg), var(--gold), var(--rose), var(--mint), var(--lilac), var(--gold));
+  -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor; mask-composite:exclude;
+  opacity:.55; animation:spin 6s linear infinite;
+}
+@keyframes spin{to{--ang:360deg;}}
+@property --ang{syntax:'<angle>';inherits:false;initial-value:0deg;}
+.destaque .tag{display:flex;align-items:center;gap:8px;font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--gold-soft);margin-bottom:10px;}
+.destaque .content{display:flex;gap:20px;align-items:center;flex-wrap:wrap;}
+.destaque p{font-family:'Caveat',cursive;font-size:1.55rem;line-height:1.3;color:var(--ink);margin:0;flex:1;min-width:200px;}
+.destaque .meta{font-size:.78rem;color:var(--ink-faint);white-space:nowrap;}
+
+/* pricing / planos */
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px;}
+@media(max-width:520px){.plans{grid-template-columns:1fr;}}
+.plan{padding:20px;cursor:pointer;border:1px solid var(--glass-bd);transition:all .3s var(--ease);position:relative;}
+.plan:hover{transform:translateY(-3px);}
+.plan.sel{border-color:var(--gold-soft);box-shadow:0 0 0 3px rgba(232,196,104,.18);}
+.plan .top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;}
+.plan .top .ic{font-size:1.4rem;}
+.plan .price{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:600;}
+.plan .price small{font-size:.7rem;color:var(--ink-faint);font-weight:400;font-family:'Plus Jakarta Sans';}
+.plan h4{margin:2px 0 6px;font-size:.98rem;}
+.plan ul{margin:0;padding:0;list-style:none;font-size:.78rem;color:var(--ink-dim);display:flex;flex-direction:column;gap:5px;}
+.plan ul li::before{content:'✓ ';color:var(--mint);font-weight:700;}
+.plan .badge-pop{position:absolute;top:-10px;right:16px;background:linear-gradient(135deg,var(--rose),#e8497a);color:#fff;font-size:.62rem;font-weight:800;padding:4px 10px;border-radius:999px;text-transform:uppercase;letter-spacing:.06em;box-shadow:0 6px 14px -4px rgba(255,107,157,.6);}
+
+/* payment badges + admin extras */
+.badge.gratuito{background:rgba(183,172,217,.15);color:var(--ink-dim);}
+.badge.pendente_pg{background:rgba(232,196,104,.15);color:var(--gold-soft);}
+.badge.pago{background:rgba(127,232,201,.15);color:var(--mint);}
+
+/* flying envelope on send */
+.flyenv{
+  position:fixed;width:46px;height:32px;border-radius:6px;z-index:300;pointer-events:none;
+  background:linear-gradient(155deg, rgba(255,255,255,.5), rgba(255,255,255,.15));
+  border:1px solid rgba(255,255,255,.55);box-shadow:0 10px 24px -8px rgba(0,0,0,.5);
+  transition:all .9s cubic-bezier(.6,-.2,.3,1.3);
+}
+
+/* sparkles */
+.sparkle{position:fixed;pointer-events:none;z-index:40;border-radius:50%;transform:translate(-50%,-50%);animation:sparkleFade .8s ease-out forwards;}
+@keyframes sparkleFade{0%{opacity:1;transform:translate(-50%,-50%) scale(1);}100%{opacity:0;transform:translate(-50%,-50%) scale(.2) translateY(-14px);}}
+
+/* payment modal */
+.paylink-box{
+  display:flex;align-items:center;gap:10px;background:rgba(0,0,0,.25);border:1px solid var(--glass-bd);
+  border-radius:var(--radius-sm);padding:12px 14px;font-size:.78rem;color:var(--ink-dim);word-break:break-all;margin:14px 0;
+}
 
 /* ============ ENVIAR — compose ============ */
 .compose-wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:start;}
@@ -412,7 +494,7 @@ footer strong{color:var(--ink-dim);}
         <defs><linearGradient id="g1" x1="0" y1="0" x2="40" y2="32"><stop stop-color="#ffffff" stop-opacity=".28"/><stop offset="1" stop-color="#ffffff" stop-opacity=".04"/></linearGradient></defs>
       </svg>
     </div>
-    <div class="brand-name">Correio Elegante<small id="schoolNameTag">Colégio Fênix</small></div>
+    <div class="brand-name">Correio Elegante<small id="schoolNameTag">Nossa Escola</small></div>
   </div>
 
   <nav class="tabs" id="tabs">
@@ -423,6 +505,10 @@ footer strong{color:var(--ink-dim);}
   </nav>
 
   <div class="who">
+    <div class="mailbox" id="mailboxBadge" title="Bilhetes selados hoje">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#F6F2FF" stroke-width="1.7"><rect x="2" y="6" width="20" height="14" rx="2.5"/><path d="M3 7l9 7 9-7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="count" id="mailboxCount">0</span>
+    </div>
     <div class="pill" id="identityPill" onclick="openIdentityModal()">👤 <span id="identityLabel">Definir nome</span></div>
   </div>
 </header>
@@ -460,6 +546,14 @@ footer strong{color:var(--ink-dim);}
       <span class="tag-mode" id="modeTag"><span class="dotpulse"></span> <span id="modeTagText">carregando…</span></span>
     </div>
 
+    <div class="glass destaque" id="destaqueBox" style="display:none;">
+      <div class="tag">✦ Bilhete em destaque</div>
+      <div class="content">
+        <p id="destaqueTexto"></p>
+        <div class="meta" id="destaqueMeta"></div>
+      </div>
+    </div>
+
     <div class="chipbar">
       <div class="chip active" data-filter="todos">Todos</div>
       <div class="chip" data-filter="dourado">Dourado</div>
@@ -478,6 +572,20 @@ footer strong{color:var(--ink-dim);}
         <div class="eyebrow">Novo bilhete</div>
         <h2>Escreva com carinho</h2>
         <p>Seu recado passa por uma breve moderação antes de aparecer no mural — a não ser que você o envie só para a caixa de alguém.</p>
+      </div>
+    </div>
+
+    <div class="plans" id="plansRow">
+      <div class="plan sel" data-plan="gratuito">
+        <div class="top"><span class="ic">🕊️</span><div class="price">Grátis</div></div>
+        <h4>Bilhete Clássico</h4>
+        <ul><li>Aparece no mural (se aprovado)</li><li>4 cores de envelope</li><li>Moderação padrão</li></ul>
+      </div>
+      <div class="plan" data-plan="premium">
+        <div class="badge-pop">Selo Premium</div>
+        <div class="top"><span class="ic">💎</span><div class="price" id="premiumPriceTag">R$ 5,00</div></div>
+        <h4>Bilhete Premium</h4>
+        <ul><li>Selo de cera animado exclusivo</li><li>Destaque prioritário no mural</li><li>Pago com Stripe</li></ul>
       </div>
     </div>
 
@@ -596,7 +704,7 @@ footer strong{color:var(--ink-dim);}
 
       <div class="glass admin-table-wrap">
         <table class="admin-table">
-          <thead><tr><th>Quando</th><th>De</th><th>Para</th><th>Mensagem</th><th>Status</th><th>Ações</th></tr></thead>
+          <thead><tr><th>Quando</th><th>De</th><th>Para</th><th>Mensagem</th><th>Status</th><th>Pagamento</th><th>Ações</th></tr></thead>
           <tbody id="adminTbody"></tbody>
         </table>
       </div>
@@ -619,7 +727,7 @@ footer strong{color:var(--ink-dim);}
         </div>
         <div class="field">
           <label>Senha de administrador</label>
-          <input type="text" id="cfgPass" placeholder="11orteip">
+          <input type="text" id="cfgPass" placeholder="escola123">
         </div>
         <div style="display:flex;gap:10px;margin:14px 0 22px;">
           <button class="btn btn-primary btn-sm" onclick="saveConfig()">Salvar configuração</button>
@@ -627,6 +735,24 @@ footer strong{color:var(--ink-dim);}
         </div>
         <label style="font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-faint);">SQL para criar a tabela no Supabase</label>
         <div class="sql" id="sqlBlock"></div>
+      </div>
+
+      <div class="glass config-box">
+        <div class="eyebrow">Pagamentos</div>
+        <h3 style="margin:8px 0 4px;">Selo Premium com Stripe</h3>
+        <p style="color:var(--ink-dim);font-size:.86rem;margin-bottom:16px;">Crie um <strong>Payment Link</strong> gratuitamente no painel do Stripe (Stripe Dashboard → Payment Links) e cole a URL abaixo. Cada bilhete premium gera automaticamente um link próprio, com o ID do bilhete anexado em <code>client_reference_id</code>, para você conseguir conferir no Stripe qual pagamento pertence a qual bilhete.</p>
+        <div class="field">
+          <label>Stripe Payment Link (URL)</label>
+          <input type="text" id="cfgStripeLink" placeholder="https://buy.stripe.com/xxxxxxxx">
+        </div>
+        <div class="field">
+          <label>Preço do selo premium (R$)</label>
+          <input type="text" id="cfgStripePrice" placeholder="5">
+        </div>
+        <div style="display:flex;gap:10px;margin-top:6px;">
+          <button class="btn btn-primary btn-sm" onclick="saveConfig()">Salvar</button>
+          <span class="tag-mode" id="stripeTag" style="align-self:center;"><span class="dotpulse"></span> <span id="stripeTagText">Stripe não configurado</span></span>
+        </div>
       </div>
     </div>
   </section>
@@ -645,6 +771,19 @@ footer strong{color:var(--ink-dim);}
     <div class="actions">
       <button class="btn btn-ghost" onclick="closeIdentityModal()">Agora não</button>
       <button class="btn btn-primary" onclick="saveIdentity()">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Payment modal -->
+<div class="overlay" id="paymentOverlay">
+  <div class="glass modal">
+    <h3 id="paymentTitle">💎 Selo Premium</h3>
+    <p id="paymentDesc">Seu bilhete foi salvo e está aguardando o pagamento do selo premium.</p>
+    <div class="paylink-box" id="paylinkBox"></div>
+    <div class="actions" id="paymentActions">
+      <button class="btn btn-ghost" onclick="closePaymentModal()">Fechar</button>
+      <button class="btn btn-primary" id="paymentGoBtn">Ir para pagamento →</button>
     </div>
   </div>
 </div>
@@ -712,7 +851,11 @@ const DB = {
       anonimo: !!msg.anonimo,
       envelope_estilo: msg.envelope_estilo || 'dourado',
       status: 'pendente',
-      publica: msg.publica !== false
+      publica: msg.publica !== false,
+      plano: msg.plano || 'gratuito',
+      valor: msg.valor || 0,
+      pagamento_status: msg.plano === 'premium' ? 'pendente_pg' : 'gratuito',
+      link_pagamento: ''
     };
     if(LIVE){
       const { data, error } = await supabase.from('mensagens').insert(row).select().single();
@@ -767,6 +910,17 @@ const DB = {
       if(error) throw error;
     } else {
       localSave(localAll().filter(m=>m.id!==id));
+    }
+  },
+  async updatePayment(id, pagamento_status, link_pagamento){
+    const patch = { pagamento_status };
+    if(link_pagamento !== undefined) patch.link_pagamento = link_pagamento;
+    if(LIVE){
+      const { error } = await supabase.from('mensagens').update(patch).eq('id', id);
+      if(error) throw error;
+    } else {
+      const all = localAll(); const i = all.findIndex(m=>m.id===id);
+      if(i>-1){ Object.assign(all[i], patch); localSave(all); }
     }
   }
 };
@@ -823,11 +977,26 @@ document.querySelectorAll('nav.tabs button').forEach(b=> b.addEventListener('cli
 
 /* ===================== HERO PARALLAX ===================== */
 const stage = document.getElementById('heroStage');
+let lastSparkle = 0;
+const sparkleColors = ['#E8C468','#FF6B9D','#7FE8C9','#B79CF2'];
+function spawnSparkle(x,y){
+  const s = document.createElement('div');
+  const size = 4 + Math.random()*4;
+  s.className = 'sparkle';
+  s.style.left = x+'px'; s.style.top = y+'px';
+  s.style.width = s.style.height = size+'px';
+  s.style.background = sparkleColors[Math.floor(Math.random()*sparkleColors.length)];
+  s.style.boxShadow = `0 0 8px 1px ${s.style.background}`;
+  document.body.appendChild(s);
+  setTimeout(()=> s.remove(), 820);
+}
 document.querySelector('.scene').addEventListener('mousemove', (e)=>{
   const r = e.currentTarget.getBoundingClientRect();
   const rx = ((e.clientY - r.top)/r.height - .5) * -14;
   const ry = ((e.clientX - r.left)/r.width - .5) * 18;
   stage.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
+  const now = Date.now();
+  if(now - lastSparkle > 55){ lastSparkle = now; spawnSparkle(e.clientX, e.clientY); }
 });
 document.querySelector('.scene').addEventListener('mouseleave', ()=>{ stage.style.transform = ''; });
 
@@ -900,7 +1069,18 @@ async function renderMural(){
   try{
     muralData = await DB.listApproved();
   }catch(e){ toast('Erro ao carregar o mural', 'err'); muralData = []; }
+  paintDestaque();
   paintMural();
+}
+function paintDestaque(){
+  const box = document.getElementById('destaqueBox');
+  if(!muralData.length){ box.style.display='none'; return; }
+  const premiumOnes = muralData.filter(m=>m.plano==='premium' && m.pagamento_status==='pago');
+  const pool = premiumOnes.length ? premiumOnes : muralData;
+  const pick = pool[Math.floor(Math.random()*pool.length)];
+  document.getElementById('destaqueTexto').textContent = '“' + pick.mensagem + '”';
+  document.getElementById('destaqueMeta').textContent = (pick.anonimo ? 'Anônimo' : pick.remetente_nome) + ' → ' + pick.destinatario_nome + (pick.plano==='premium' ? ' · 💎 premium' : '');
+  box.style.display = 'block';
 }
 function initials(name){ return (name||'?').trim().split(/\s+/).slice(0,2).map(w=>w[0]).join('').toUpperCase(); }
 const colorMap = {dourado:'#e8c468', rosa:'#ff6b9d', menta:'#7fe8c9', lilas:'#b79cf2'};
@@ -957,9 +1137,99 @@ document.getElementById('publicSwitch').addEventListener('click', function(){ pu
 
 document.getElementById('previewEnv').addEventListener('click', function(){ this.classList.toggle('open'); });
 
+/* --- plano gratuito / premium --- */
+let selectedPlan = 'gratuito';
+document.querySelectorAll('#plansRow .plan').forEach(p=>{
+  p.addEventListener('click', ()=>{
+    document.querySelectorAll('#plansRow .plan').forEach(x=>x.classList.remove('sel'));
+    p.classList.add('sel'); selectedPlan = p.dataset.plan;
+    document.getElementById('submitBtn').innerHTML = selectedPlan==='premium'
+      ? '💎 Selar bilhete premium →'
+      : '🖋️ Selar e enviar';
+  });
+});
+function refreshPremiumPriceTag(){
+  const price = Number(CFG.stripePrice || 5);
+  document.getElementById('premiumPriceTag').textContent = 'R$ ' + price.toLocaleString('pt-BR',{minimumFractionDigits:2});
+}
+
+/* --- som sintetizado (nenhum arquivo de áudio necessário) --- */
+let audioCtx;
+function playTone(freq, dur, type='sine', vol=.14, delay=0){
+  try{
+    audioCtx = audioCtx || new (window.AudioContext||window.webkitAudioContext)();
+    const t0 = audioCtx.currentTime + delay;
+    const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain();
+    osc.type = type; osc.frequency.setValueAtTime(freq, t0);
+    gain.gain.setValueAtTime(vol, t0); gain.gain.exponentialRampToValueAtTime(.001, t0+dur);
+    osc.connect(gain); gain.connect(audioCtx.destination);
+    osc.start(t0); osc.stop(t0+dur);
+  }catch(e){}
+}
+function playSealSound(){ playTone(180,.16,'triangle',.16); playTone(90,.22,'sine',.12,.05); }
+
+/* --- envelope voando até a caixa de correio no header --- */
+function flyEnvelopeToMailbox(fromRect){
+  const target = document.getElementById('mailboxBadge').getBoundingClientRect();
+  const el = document.createElement('div');
+  el.className = 'flyenv';
+  el.style.left = fromRect.left + fromRect.width/2 - 23 + 'px';
+  el.style.top = fromRect.top + 'px';
+  el.style.transform = 'rotate(0deg) scale(1)';
+  document.body.appendChild(el);
+  requestAnimationFrame(()=>{
+    el.style.left = target.left + target.width/2 - 23 + 'px';
+    el.style.top = target.top + target.height/2 - 16 + 'px';
+    el.style.transform = 'rotate(340deg) scale(.25)';
+    el.style.opacity = '.2';
+  });
+  setTimeout(()=>{
+    el.remove();
+    const mb = document.getElementById('mailboxBadge');
+    mb.classList.add('bump'); setTimeout(()=>mb.classList.remove('bump'), 500);
+    bumpMailboxCount();
+  }, 920);
+}
+const LS_COUNT = 'ce_contagem_diaria';
+function bumpMailboxCount(){
+  const today = new Date().toISOString().slice(0,10);
+  let rec; try{ rec = JSON.parse(localStorage.getItem(LS_COUNT)) || {}; }catch(e){ rec = {}; }
+  if(rec.date !== today) rec = { date: today, n: 0 };
+  rec.n = (rec.n||0) + 1;
+  localStorage.setItem(LS_COUNT, JSON.stringify(rec));
+  document.getElementById('mailboxCount').textContent = rec.n;
+}
+function initMailboxCount(){
+  const today = new Date().toISOString().slice(0,10);
+  let rec; try{ rec = JSON.parse(localStorage.getItem(LS_COUNT)) || {}; }catch(e){ rec = {}; }
+  document.getElementById('mailboxCount').textContent = (rec.date===today) ? (rec.n||0) : 0;
+}
+
+/* --- modal de pagamento --- */
+window.closePaymentModal = function(){ document.getElementById('paymentOverlay').classList.remove('show'); };
+function openPaymentModal({link, simulated, messageId}){
+  document.getElementById('paylinkBox').textContent = link || 'Nenhum link configurado ainda.';
+  const goBtn = document.getElementById('paymentGoBtn');
+  if(simulated){
+    document.getElementById('paymentDesc').textContent = 'Modo demonstração: nenhum link do Stripe foi configurado pela administração ainda. Você pode simular um pagamento aprovado abaixo.';
+    goBtn.textContent = '✓ Simular pagamento aprovado';
+    goBtn.onclick = async ()=>{
+      await DB.updatePayment(messageId, 'pago');
+      toast('Pagamento simulado como aprovado 💎');
+      closePaymentModal();
+    };
+  } else {
+    document.getElementById('paymentDesc').textContent = 'Seu bilhete foi salvo e ficará com o selo pendente até o pagamento ser confirmado.';
+    goBtn.textContent = 'Ir para pagamento →';
+    goBtn.onclick = ()=>{ window.open(link, '_blank'); };
+  }
+  document.getElementById('paymentOverlay').classList.add('show');
+}
+
 composeForm.addEventListener('submit', async (e)=>{
   e.preventDefault();
   const btn = document.getElementById('submitBtn');
+  const price = Number(CFG.stripePrice || 5);
   const payload = {
     remetente_nome: document.getElementById('fRemetenteNome').value.trim(),
     remetente_turma: document.getElementById('fRemetenteTurma').value.trim(),
@@ -968,21 +1238,41 @@ composeForm.addEventListener('submit', async (e)=>{
     mensagem: mensagemEl.value.trim(),
     anonimo: anonOn,
     envelope_estilo: selectedColor,
-    publica: pubOn
+    publica: pubOn,
+    plano: selectedPlan,
+    valor: selectedPlan==='premium' ? price : 0
   };
   if(!payload.remetente_nome || !payload.destinatario_nome || !payload.mensagem){
     toast('Preencha nome, destinatário e mensagem', 'err'); return;
   }
+  const fromRect = btn.getBoundingClientRect();
   btn.classList.add('sending'); btn.textContent = 'Selando…';
   try{
-    await DB.add(payload);
+    const row = await DB.add(payload);
+    playSealSound();
     confettiBurst();
-    toast('Bilhete enviado! Ele passará por moderação antes de aparecer no mural.');
+    flyEnvelopeToMailbox(fromRect);
+    if(payload.plano === 'premium'){
+      if(CFG.stripeLink){
+        const link = CFG.stripeLink + (CFG.stripeLink.includes('?')?'&':'?') + 'client_reference_id=' + encodeURIComponent(row.id);
+        try{ await DB.updatePayment(row.id, 'pendente_pg', link); }catch(e){}
+        toast('Bilhete premium salvo! Complete o pagamento para confirmar o selo.');
+        openPaymentModal({link, simulated:false, messageId: row.id});
+      } else {
+        toast('Bilhete premium salvo! (Stripe não configurado — modo demo)');
+        openPaymentModal({link:'', simulated:true, messageId: row.id});
+      }
+    } else {
+      toast('Bilhete enviado! Ele passará por moderação antes de aparecer no mural.');
+    }
     composeForm.reset();
     document.getElementById('charCount').textContent = '0';
     anonOn=false; pubOn=true;
     document.getElementById('anonSwitch').classList.remove('on');
     document.getElementById('publicSwitch').classList.add('on');
+    document.querySelectorAll('#plansRow .plan').forEach(x=>x.classList.remove('sel'));
+    document.querySelector('#plansRow .plan[data-plan="gratuito"]').classList.add('sel');
+    selectedPlan = 'gratuito';
     const id = getIdentity();
     if(id){ document.getElementById('fRemetenteNome').value = id.nome; document.getElementById('fRemetenteTurma').value = id.turma||''; }
   }catch(err){
@@ -1026,7 +1316,7 @@ let adminStatusFilter = 'todos';
 
 window.tryAdminLogin = function(){
   const pass = document.getElementById('adminPass').value;
-  const expected = CFG.adminPass || '11orteip';
+  const expected = CFG.adminPass || 'escola123';
   if(pass === expected){
     adminAuthed = true;
     document.getElementById('adminGate').style.display='none';
@@ -1052,7 +1342,7 @@ document.querySelectorAll('#adminFilterChips .chip').forEach(c=>{
 document.getElementById('adminSearch').addEventListener('input', paintAdmin);
 
 async function renderAdmin(){
-  document.getElementById('adminTbody').innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--ink-faint);padding:26px;">Carregando…</td></tr>';
+  document.getElementById('adminTbody').innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--ink-faint);padding:26px;">Carregando…</td></tr>';
   try{ adminData = await DB.listAll(); }catch(e){ adminData = []; toast('Erro ao carregar mensagens', 'err'); }
   paintStats();
   paintAdmin();
@@ -1063,8 +1353,10 @@ function paintStats(){
   const pend = adminData.filter(m=>m.status==='pendente').length;
   const apr = adminData.filter(m=>m.status==='aprovada').length;
   const rej = adminData.filter(m=>m.status==='rejeitada').length;
+  const receita = adminData.filter(m=>m.pagamento_status==='pago').reduce((s,m)=> s + Number(m.valor||0), 0);
   document.getElementById('statRow').innerHTML = [
-    ['Total', total], ['Pendentes', pend], ['Aprovadas', apr], ['Rejeitadas', rej]
+    ['Total', total], ['Pendentes', pend], ['Aprovadas', apr], ['Rejeitadas', rej],
+    ['Receita premium', 'R$ ' + receita.toLocaleString('pt-BR',{minimumFractionDigits:2})]
   ].map(([l,n])=>`<div class="glass stat"><div class="n">${n}</div><div class="l">${l}</div></div>`).join('');
 }
 function paintAdmin(){
@@ -1073,14 +1365,25 @@ function paintAdmin(){
   if(adminStatusFilter!=='todos') data = data.filter(m=>m.status===adminStatusFilter);
   if(search) data = data.filter(m => (m.remetente_nome+m.destinatario_nome).toLowerCase().includes(search));
   const tbody = document.getElementById('adminTbody');
-  if(!data.length){ tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--ink-faint);padding:26px;">Nenhuma mensagem encontrada.</td></tr>'; return; }
-  tbody.innerHTML = data.map(m=>`
+  if(!data.length){ tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--ink-faint);padding:26px;">Nenhuma mensagem encontrada.</td></tr>'; return; }
+  tbody.innerHTML = data.map(m=>{
+    const pgStatus = m.pagamento_status || (m.plano==='premium' ? 'pendente_pg' : 'gratuito');
+    const pgLabel = pgStatus==='pago' ? 'pago' : pgStatus==='pendente_pg' ? 'pendente' : 'grátis';
+    const paySection = m.plano==='premium'
+      ? `<span class="badge ${pgStatus}">💎 ${pgLabel}</span><br>
+         <div class="rowbtns" style="margin-top:6px;">
+           ${m.link_pagamento ? `<button class="iconbtn" title="Copiar link de pagamento" onclick="adminCopyLink('${m.id}')">🔗</button>` : ''}
+           ${pgStatus!=='pago' ? `<button class="iconbtn" title="Marcar como pago" onclick="adminMarkPaid('${m.id}')">💳</button>` : ''}
+         </div>`
+      : `<span class="badge gratuito">grátis</span>`;
+    return `
     <tr>
       <td>${new Date(m.criado_em).toLocaleDateString('pt-BR')}<br><span style="color:var(--ink-faint);font-size:.72rem;">${new Date(m.criado_em).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})}</span></td>
       <td>${m.anonimo? '<em>Anônimo</em>' : escapeHTML(m.remetente_nome)}${m.remetente_turma? '<br><span style="color:var(--ink-faint);font-size:.72rem;">'+escapeHTML(m.remetente_turma)+'</span>':''}</td>
       <td>${escapeHTML(m.destinatario_nome)}${m.destinatario_turma? '<br><span style="color:var(--ink-faint);font-size:.72rem;">'+escapeHTML(m.destinatario_turma)+'</span>':''}</td>
       <td class="msgpeek">${escapeHTML((m.mensagem||'').slice(0,90))}${(m.mensagem||'').length>90?'…':''}</td>
       <td><span class="badge ${m.status}">${m.status}</span></td>
+      <td>${paySection}</td>
       <td>
         <div class="rowbtns">
           <button class="iconbtn" title="Aprovar" onclick="adminSetStatus('${m.id}','aprovada')">✓</button>
@@ -1088,7 +1391,7 @@ function paintAdmin(){
           <button class="iconbtn" title="Excluir" onclick="adminDelete('${m.id}')">🗑</button>
         </div>
       </td>
-    </tr>`).join('');
+    </tr>`;}).join('');
 }
 window.adminSetStatus = async function(id, status){
   try{ await DB.updateStatus(id, status); toast('Status atualizado'); renderAdmin(); }
@@ -1098,6 +1401,16 @@ window.adminDelete = async function(id){
   try{ await DB.remove(id); toast('Mensagem excluída'); renderAdmin(); }
   catch(e){ toast('Erro ao excluir', 'err'); }
 };
+window.adminMarkPaid = async function(id){
+  try{ await DB.updatePayment(id, 'pago'); toast('Pagamento confirmado 💎'); renderAdmin(); }
+  catch(e){ toast('Erro ao atualizar pagamento', 'err'); }
+};
+window.adminCopyLink = async function(id){
+  const m = adminData.find(x=>x.id===id);
+  if(!m || !m.link_pagamento){ toast('Nenhum link disponível', 'err'); return; }
+  try{ await navigator.clipboard.writeText(m.link_pagamento); toast('Link de pagamento copiado'); }
+  catch(e){ toast(m.link_pagamento); }
+};
 
 /* ===================== CONFIG ===================== */
 function prefillConfigForm(){
@@ -1105,23 +1418,36 @@ function prefillConfigForm(){
   document.getElementById('cfgUrl').value = CFG.url || '';
   document.getElementById('cfgKey').value = CFG.key || '';
   document.getElementById('cfgPass').value = CFG.adminPass || '';
+  document.getElementById('cfgStripeLink').value = CFG.stripeLink || '';
+  document.getElementById('cfgStripePrice').value = CFG.stripePrice || '';
+  updateStripeTag();
+}
+function updateStripeTag(){
+  const tag = document.getElementById('stripeTag');
+  const txt = document.getElementById('stripeTagText');
+  if(CFG.stripeLink){ tag.classList.add('live'); txt.textContent = 'Stripe configurado'; }
+  else { tag.classList.remove('live'); txt.textContent = 'Stripe não configurado (modo demo)'; }
 }
 window.saveConfig = async function(){
   CFG = {
     schoolName: document.getElementById('cfgSchoolName').value.trim(),
     url: document.getElementById('cfgUrl').value.trim(),
     key: document.getElementById('cfgKey').value.trim(),
-    adminPass: document.getElementById('cfgPass').value.trim() || '11orteip'
+    adminPass: document.getElementById('cfgPass').value.trim() || 'escola123',
+    stripeLink: document.getElementById('cfgStripeLink').value.trim(),
+    stripePrice: document.getElementById('cfgStripePrice').value.trim() || '5'
   };
   localStorage.setItem(LS_CFG, JSON.stringify(CFG));
   applySchoolName();
+  refreshPremiumPriceTag();
+  updateStripeTag();
   toast('Configuração salva. Conectando…');
   await initSupabase();
   renderMural();
   if(adminAuthed) renderAdmin();
 };
 window.clearConfig = function(){
-  const keep = { schoolName: CFG.schoolName, adminPass: CFG.adminPass };
+  const keep = { schoolName: CFG.schoolName, adminPass: CFG.adminPass, stripeLink: CFG.stripeLink, stripePrice: CFG.stripePrice };
   CFG = keep;
   localStorage.setItem(LS_CFG, JSON.stringify(CFG));
   supabase = null; LIVE = false;
@@ -1150,7 +1476,11 @@ create table mensagens (
   anonimo boolean default false,
   envelope_estilo text default 'dourado',
   status text default 'pendente',
-  publica boolean default true
+  publica boolean default true,
+  plano text default 'gratuito',
+  valor numeric default 0,
+  pagamento_status text default 'gratuito',
+  link_pagamento text
 );
 
 alter table mensagens enable row level security;
@@ -1175,6 +1505,8 @@ create policy "exclusao_demo" on mensagens
 (async function boot(){
   refreshIdentityPill();
   applySchoolName();
+  refreshPremiumPriceTag();
+  initMailboxCount();
   const id = getIdentity();
   if(id){
     document.getElementById('fRemetenteNome').value = id.nome;
