@@ -7,132 +7,84 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-/* ============ TOKENS ============ */
 :root{
-  --bg-deep:#150F2B;
-  --bg-mid:#241A47;
-  --bg-glow:#4A2B7A;
-  --gold:#E8C468;
-  --gold-soft:#F2DA9C;
-  --rose:#FF6B9D;
-  --mint:#7FE8C9;
-  --lilac:#B79CF2;
-  --ink:#F6F2FF;
-  --ink-dim:#B7ACD9;
-  --ink-faint:#8A7FB0;
-  --glass-bd:rgba(246,242,255,.16);
-  --glass-fill:rgba(255,255,255,.06);
+  --bg-deep:#150F2B; --bg-mid:#241A47; --bg-glow:#4A2B7A;
+  --gold:#E8C468; --gold-soft:#F2DA9C; --rose:#FF6B9D; --mint:#7FE8C9; --lilac:#B79CF2;
+  --ink:#F6F2FF; --ink-dim:#B7ACD9; --ink-faint:#8A7FB0;
+  --glass-bd:rgba(246,242,255,.16); --glass-fill:rgba(255,255,255,.06);
   --shadow-deep:0 30px 60px -20px rgba(6,3,20,.65);
-  --radius-lg:26px;
-  --radius-md:18px;
-  --radius-sm:12px;
+  --radius-lg:26px; --radius-md:18px; --radius-sm:12px;
   --ease:cubic-bezier(.22,1,.36,1);
 }
 *{box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 body{
-  margin:0;
-  min-height:100vh;
-  font-family:'Plus Jakarta Sans',sans-serif;
-  color:var(--ink);
+  margin:0;min-height:100vh;font-family:'Plus Jakarta Sans',sans-serif;color:var(--ink);
   background:
     radial-gradient(ellipse 90% 55% at 18% -8%, rgba(74,43,122,.85), transparent 60%),
     radial-gradient(ellipse 70% 50% at 100% 10%, rgba(255,107,157,.18), transparent 55%),
     radial-gradient(ellipse 80% 60% at 50% 120%, rgba(127,232,201,.12), transparent 55%),
     linear-gradient(180deg,var(--bg-deep),var(--bg-mid) 45%, #1B1338 100%);
-  background-attachment:fixed;
-  overflow-x:hidden;
-  -webkit-font-smoothing:antialiased;
+  background-attachment:fixed;overflow-x:hidden;-webkit-font-smoothing:antialiased;
 }
 ::selection{background:var(--rose);color:#1B1338;}
 h1,h2,h3,.display{font-family:'Fraunces',serif;letter-spacing:-.01em;}
-.script{font-family:'Caveat',cursive;}
 a{color:inherit;}
 button{font-family:inherit;}
 ::-webkit-scrollbar{width:10px;}
 ::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:10px;}
+code{background:rgba(0,0,0,.3);padding:1px 6px;border-radius:5px;font-size:.85em;}
 
-/* floating ambient particles */
 #ambient{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
 .mote{position:absolute;border-radius:50%;filter:blur(1px);opacity:.5;animation:drift linear infinite;}
-@keyframes drift{
-  0%{transform:translateY(110vh) translateX(0) scale(1);}
-  100%{transform:translateY(-10vh) translateX(30px) scale(1.4);opacity:0;}
-}
+@keyframes drift{0%{transform:translateY(110vh) translateX(0) scale(1);}100%{transform:translateY(-10vh) translateX(30px) scale(1.4);opacity:0;}}
 
-/* ============ GLASS PRIMITIVES ============ */
 .glass{
-  background:var(--glass-fill);
-  border:1px solid var(--glass-bd);
-  backdrop-filter:blur(22px) saturate(140%);
-  -webkit-backdrop-filter:blur(22px) saturate(140%);
-  box-shadow:var(--shadow-deep), inset 0 1px 0 rgba(255,255,255,.14);
-  border-radius:var(--radius-lg);
+  background:var(--glass-fill);border:1px solid var(--glass-bd);
+  backdrop-filter:blur(22px) saturate(140%);-webkit-backdrop-filter:blur(22px) saturate(140%);
+  box-shadow:var(--shadow-deep), inset 0 1px 0 rgba(255,255,255,.14);border-radius:var(--radius-lg);
 }
-.eyebrow{
-  font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--gold-soft);font-weight:700;display:flex;align-items:center;gap:8px;
-}
+.eyebrow{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-soft);font-weight:700;display:flex;align-items:center;gap:8px;}
 .eyebrow::before{content:'';width:22px;height:1px;background:var(--gold-soft);opacity:.7;}
 
-/* ============ NAV ============ */
 header.topbar{
-  position:sticky;top:0;z-index:50;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:14px clamp(16px,4vw,42px);
-  background:rgba(21,15,43,.55);
-  backdrop-filter:blur(18px) saturate(150%);
-  border-bottom:1px solid rgba(255,255,255,.08);
+  position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
+  padding:14px clamp(16px,4vw,42px);background:rgba(21,15,43,.55);
+  backdrop-filter:blur(18px) saturate(150%);border-bottom:1px solid rgba(255,255,255,.08);
 }
 .brand{display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none;}
-.brand-mark{width:38px;height:30px;position:relative;filter:drop-shadow(0 6px 10px rgba(232,196,104,.35));}
+.brand-mark{width:38px;height:30px;filter:drop-shadow(0 6px 10px rgba(232,196,104,.35));}
 .brand-mark svg{width:100%;height:100%;}
 .brand-name{font-family:'Fraunces',serif;font-size:1.18rem;font-weight:600;line-height:1;}
 .brand-name small{display:block;font-family:'Plus Jakarta Sans';font-size:.62rem;letter-spacing:.14em;color:var(--ink-faint);font-weight:600;text-transform:uppercase;margin-top:2px;}
 
 nav.tabs{display:flex;gap:4px;background:rgba(255,255,255,.05);border:1px solid var(--glass-bd);padding:4px;border-radius:999px;}
 nav.tabs button{
-  border:none;background:transparent;color:var(--ink-dim);
-  padding:9px 16px;border-radius:999px;font-size:.86rem;font-weight:600;cursor:pointer;
-  transition:color .25s var(--ease), background .35s var(--ease), transform .25s var(--ease);
-  display:flex;align-items:center;gap:6px;white-space:nowrap;
+  border:none;background:transparent;color:var(--ink-dim);padding:9px 16px;border-radius:999px;font-size:.86rem;font-weight:600;cursor:pointer;
+  transition:color .25s var(--ease), background .35s var(--ease), transform .25s var(--ease);display:flex;align-items:center;gap:6px;white-space:nowrap;
 }
 nav.tabs button:hover{color:var(--ink);}
 nav.tabs button.active{background:linear-gradient(135deg,var(--gold),#d9a94e);color:#241503;box-shadow:0 6px 18px -6px rgba(232,196,104,.6);}
 .who{display:flex;align-items:center;gap:10px;}
-.who .pill{
-  font-size:.76rem;color:var(--ink-dim);background:rgba(255,255,255,.06);
-  border:1px solid var(--glass-bd);padding:7px 12px;border-radius:999px;cursor:pointer;
-}
-.mailbox{
-  position:relative;width:38px;height:34px;cursor:pointer;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;
-  border-radius:10px;background:rgba(255,255,255,.06);border:1px solid var(--glass-bd);
-  transition:transform .3s var(--ease);
-}
+.who .pill{font-size:.76rem;color:var(--ink-dim);background:rgba(255,255,255,.06);border:1px solid var(--glass-bd);padding:7px 12px;border-radius:999px;cursor:pointer;}
+.presence{display:flex;align-items:center;gap:6px;font-size:.74rem;color:var(--mint);background:rgba(127,232,201,.1);border:1px solid rgba(127,232,201,.3);padding:6px 11px;border-radius:999px;}
+.presence .dotpulse{width:6px;height:6px;border-radius:50%;background:currentColor;animation:pulse 2s infinite;}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(127,232,201,.5);}70%{box-shadow:0 0 0 7px rgba(127,232,201,0);}100%{box-shadow:0 0 0 0 rgba(127,232,201,0);}}
+.mailbox{position:relative;width:38px;height:34px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;border-radius:10px;background:rgba(255,255,255,.06);border:1px solid var(--glass-bd);transition:transform .3s var(--ease);}
 .mailbox:hover{transform:translateY(-2px);}
 .mailbox svg{width:19px;height:19px;}
-.mailbox .count{
-  position:absolute;top:-7px;right:-7px;min-width:17px;height:17px;padding:0 4px;
-  background:linear-gradient(135deg,var(--rose),#e8497a);color:#fff;font-size:.62rem;font-weight:800;
-  border-radius:999px;display:flex;align-items:center;justify-content:center;
-  box-shadow:0 4px 8px -2px rgba(255,107,157,.6);
-}
+.mailbox .count{position:absolute;top:-7px;right:-7px;min-width:17px;height:17px;padding:0 4px;background:linear-gradient(135deg,var(--rose),#e8497a);color:#fff;font-size:.62rem;font-weight:800;border-radius:999px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 8px -2px rgba(255,107,157,.6);}
 .mailbox.bump{animation:bump .5s var(--ease);}
 @keyframes bump{0%{transform:scale(1);}35%{transform:scale(1.28) rotate(-6deg);}100%{transform:scale(1);}}
 @media(max-width:880px){
   nav.tabs{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);z-index:60;box-shadow:var(--shadow-deep);}
   nav.tabs span.label{display:none;}
   .who .pill span{display:none;}
+  .presence span.plabel{display:none;}
   header.topbar{padding:12px 16px;}
 }
 
-/* ============ HERO / 3D SIGNATURE ============ */
-.hero{
-  position:relative;padding:70px clamp(16px,5vw,60px) 40px;
-  display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center;
-  max-width:1280px;margin:0 auto;
-}
+.hero{position:relative;padding:70px clamp(16px,5vw,60px) 40px;display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center;max-width:1280px;margin:0 auto;}
 @media(max-width:900px){.hero{grid-template-columns:1fr;padding-top:44px;}}
 .hero-copy .eyebrow{margin-bottom:18px;}
 .hero h1{font-size:clamp(2.3rem,5vw,3.6rem);font-weight:600;line-height:1.05;margin:0 0 18px;}
@@ -140,11 +92,7 @@ nav.tabs button.active{background:linear-gradient(135deg,var(--gold),#d9a94e);co
 .hero p.lede{color:var(--ink-dim);font-size:1.05rem;line-height:1.65;max-width:46ch;margin:0 0 30px;}
 .hero-cta{display:flex;gap:14px;flex-wrap:wrap;}
 
-.btn{
-  border:none;cursor:pointer;font-weight:700;font-size:.92rem;border-radius:999px;
-  padding:14px 26px;display:inline-flex;align-items:center;gap:9px;
-  transition:transform .3s var(--ease), box-shadow .3s var(--ease), filter .3s;
-}
+.btn{border:none;cursor:pointer;font-weight:700;font-size:.92rem;border-radius:999px;padding:14px 26px;display:inline-flex;align-items:center;gap:9px;transition:transform .3s var(--ease), box-shadow .3s var(--ease), filter .3s;}
 .btn:active{transform:scale(.96);}
 .btn-primary{background:linear-gradient(135deg,var(--gold),#d9a94e);color:#241503;box-shadow:0 14px 30px -10px rgba(232,196,104,.55);}
 .btn-primary:hover{transform:translateY(-2px);filter:brightness(1.06);}
@@ -153,23 +101,15 @@ nav.tabs button.active{background:linear-gradient(135deg,var(--gold),#d9a94e);co
 .btn-sm{padding:9px 16px;font-size:.78rem;border-radius:999px;}
 .btn-danger{background:rgba(255,90,110,.16);color:#ffb3bf;border:1px solid rgba(255,90,110,.3);}
 .btn-mint{background:rgba(127,232,201,.16);color:var(--mint);border:1px solid rgba(127,232,201,.35);}
+.btn[disabled]{opacity:.45;cursor:not-allowed;filter:none;transform:none;}
+.btn-block{width:100%;justify-content:center;}
 
-/* 3D scene */
-.scene{
-  perspective:1300px;height:420px;position:relative;
-  display:flex;align-items:center;justify-content:center;
-}
+.scene{perspective:1300px;height:420px;position:relative;display:flex;align-items:center;justify-content:center;}
 .scene-stage{width:100%;height:100%;position:relative;transform-style:preserve-3d;}
 .env{
   position:absolute;width:210px;height:140px;left:50%;top:50%;margin:-70px 0 0 -105px;
-  transform-style:preserve-3d;
-  animation:float var(--dur,7s) ease-in-out infinite;
-  animation-delay:var(--delay,0s);
-  will-change:transform;
+  transform-style:preserve-3d;animation:float var(--dur,7s) ease-in-out infinite;animation-delay:var(--delay,0s);will-change:transform;
 }
-/* each envelope has its own fixed 3D slot (--x/--y/--z) so the float
-   keyframes only ever nudge it around that slot instead of overwriting
-   a separate static transform — this is what stopped them crossing paths */
 .env.e1{--x:-158px;--y:-90px;--z:60px;--rz:-4deg;--sc:1;--dur:7.6s;--delay:0s;--seal:var(--gold);z-index:3;}
 .env.e2{--x:132px;--y:-12px;--z:-55px;--rz:7deg;--sc:.8;--dur:8.8s;--delay:1.1s;--seal:var(--rose);z-index:2;}
 .env.e3{--x:-52px;--y:104px;--z:15px;--rz:-9deg;--sc:.62;--dur:9.6s;--delay:2.2s;--seal:var(--mint);z-index:1;}
@@ -177,110 +117,50 @@ nav.tabs button.active{background:linear-gradient(135deg,var(--gold),#d9a94e);co
   0%,100%{transform:translate3d(var(--x),var(--y),var(--z)) rotateZ(var(--rz)) rotateY(-10deg) scale(var(--sc));}
   50%{transform:translate3d(var(--x), calc(var(--y) - 16px), calc(var(--z) + 22px)) rotateZ(calc(var(--rz) + 4deg)) rotateY(10deg) scale(var(--sc));}
 }
-@media(max-width:600px){
-  .env.e1{--x:-98px;--y:-62px;}
-  .env.e2{--x:86px;--y:-6px;}
-  .env.e3{--x:-30px;--y:74px;}
-}
-.env-body{
-  position:absolute;inset:0;border-radius:14px;
-  background:linear-gradient(155deg, rgba(255,255,255,.22), rgba(255,255,255,.04) 55%);
-  border:1px solid rgba(255,255,255,.35);
-  backdrop-filter:blur(6px);
-  box-shadow:0 24px 46px -18px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.4);
-}
-.env-flap{
-  position:absolute;left:0;right:0;top:0;height:76px;
-  background:linear-gradient(160deg, rgba(255,255,255,.30), rgba(255,255,255,.06));
-  clip-path:polygon(0 0,100% 0,50% 88%);
-  border-radius:14px 14px 0 0;
-  transform-origin:top center;transform:rotateX(0deg);
-  border:1px solid rgba(255,255,255,.4);border-bottom:none;
-  animation:flap 7s ease-in-out infinite;
-  animation-delay:inherit;
-}
-@keyframes flap{
-  0%,40%,100%{transform:rotateX(0deg);}
-  55%,80%{transform:rotateX(-165deg);}
-}
-.env-seal{
-  position:absolute;left:50%;top:58px;width:34px;height:34px;margin:-17px 0 0 -17px;
-  border-radius:50%;
-  background:radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--seal) 88%, white), var(--seal) 70%);
-  box-shadow:0 8px 16px -4px rgba(0,0,0,.5), inset 0 -3px 6px rgba(0,0,0,.25);
-  display:flex;align-items:center;justify-content:center;font-size:.6rem;color:#241503;font-weight:800;
-}
+@media(max-width:600px){.env.e1{--x:-98px;--y:-62px;}.env.e2{--x:86px;--y:-6px;}.env.e3{--x:-30px;--y:74px;}}
+.env-body{position:absolute;inset:0;border-radius:14px;background:linear-gradient(155deg, rgba(255,255,255,.22), rgba(255,255,255,.04) 55%);border:1px solid rgba(255,255,255,.35);backdrop-filter:blur(6px);box-shadow:0 24px 46px -18px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.4);}
+.env-flap{position:absolute;left:0;right:0;top:0;height:76px;background:linear-gradient(160deg, rgba(255,255,255,.30), rgba(255,255,255,.06));clip-path:polygon(0 0,100% 0,50% 88%);border-radius:14px 14px 0 0;transform-origin:top center;border:1px solid rgba(255,255,255,.4);border-bottom:none;animation:flap 7s ease-in-out infinite;animation-delay:inherit;}
+@keyframes flap{0%,40%,100%{transform:rotateX(0deg);}55%,80%{transform:rotateX(-165deg);}}
+.env-seal{position:absolute;left:50%;top:58px;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;background:radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--seal) 88%, white), var(--seal) 70%);box-shadow:0 8px 16px -4px rgba(0,0,0,.5), inset 0 -3px 6px rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center;font-size:.6rem;color:#241503;font-weight:800;}
 .scene-orbit{position:absolute;inset:0;border-radius:50%;border:1px dashed rgba(255,255,255,.08);transform:rotateX(70deg);}
 
-/* ============ SECTIONS / LAYOUT ============ */
 main{max-width:1280px;margin:0 auto;padding:10px clamp(16px,5vw,60px) 120px;position:relative;z-index:1;}
 .view{display:none;animation:viewIn .55s var(--ease);}
 .view.active{display:block;}
 @keyframes viewIn{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
-
 .section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin:36px 0 22px;flex-wrap:wrap;}
 .section-head h2{font-size:clamp(1.5rem,3vw,2.1rem);font-weight:600;margin:6px 0 0;}
 .section-head p{color:var(--ink-dim);margin:6px 0 0;max-width:52ch;font-size:.92rem;}
-
-/* filter chips */
 .chipbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px;}
-.chip{
-  padding:8px 15px;border-radius:999px;font-size:.8rem;font-weight:600;cursor:pointer;
-  background:rgba(255,255,255,.05);border:1px solid var(--glass-bd);color:var(--ink-dim);
-  transition:all .25s var(--ease);
-}
+.chip{padding:8px 15px;border-radius:999px;font-size:.8rem;font-weight:600;cursor:pointer;background:rgba(255,255,255,.05);border:1px solid var(--glass-bd);color:var(--ink-dim);transition:all .25s var(--ease);}
 .chip.active{background:rgba(255,255,255,.14);color:var(--ink);border-color:rgba(255,255,255,.3);}
+.tag-mode{display:inline-flex;align-items:center;gap:6px;font-size:.75rem;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid var(--glass-bd);color:var(--ink-dim);}
+.tag-mode.live{color:var(--mint);}
+.tag-mode.error{color:#ffb3bf;}
+.tag-mode .dotpulse{width:7px;height:7px;border-radius:50%;background:currentColor;animation:pulse 2s infinite;}
 
-/* ============ MURAL — flip cards ============ */
 .mural-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:22px;}
-.card3d{perspective:1400px;height:260px;}
-.card3d-inner{
-  position:relative;width:100%;height:100%;transform-style:preserve-3d;
-  transition:transform .7s var(--ease);cursor:pointer;
-}
+.card3d{perspective:1400px;height:280px;}
+.card3d-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .7s var(--ease);cursor:pointer;}
 .card3d.flipped .card3d-inner{transform:rotateY(180deg);}
-.card-face{
-  position:absolute;inset:0;border-radius:var(--radius-md);backface-visibility:hidden;
-  padding:20px;display:flex;flex-direction:column;
-}
-.card-front{
-  background:linear-gradient(150deg, rgba(255,255,255,.10), rgba(255,255,255,.02));
-  border:1px solid var(--glass-bd);backdrop-filter:blur(16px);
-  justify-content:space-between;
-}
-.card-front .stamp{
-  align-self:flex-end;width:46px;height:46px;border-radius:50%;
-  background:radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--c) 85%, white), var(--c) 75%);
-  box-shadow:0 8px 18px -6px rgba(0,0,0,.5), inset 0 -3px 6px rgba(0,0,0,.2);
-  display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:700;color:#20130a;
-}
+.card-face{position:absolute;inset:0;border-radius:var(--radius-md);backface-visibility:hidden;padding:20px;display:flex;flex-direction:column;}
+.card-front{background:linear-gradient(150deg, rgba(255,255,255,.10), rgba(255,255,255,.02));border:1px solid var(--glass-bd);backdrop-filter:blur(16px);justify-content:space-between;}
+.card-front .stamp{align-self:flex-end;width:46px;height:46px;border-radius:50%;background:radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--c) 85%, white), var(--c) 75%);box-shadow:0 8px 18px -6px rgba(0,0,0,.5), inset 0 -3px 6px rgba(0,0,0,.2);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:700;color:#20130a;}
 .card-front .to{font-size:.68rem;text-transform:uppercase;letter-spacing:.12em;color:var(--ink-faint);font-weight:700;}
 .card-front .to strong{display:block;font-family:'Fraunces',serif;font-style:italic;font-size:1.25rem;color:var(--ink);font-weight:500;margin-top:4px;text-transform:none;letter-spacing:0;}
 .card-front .hint{font-size:.74rem;color:var(--ink-faint);}
-.card-back{
-  background:linear-gradient(150deg, rgba(255,255,255,.16), rgba(255,255,255,.05));
-  border:1px solid var(--glass-bd);transform:rotateY(180deg);
-  justify-content:space-between; backdrop-filter:blur(16px);
-}
+.card-back{background:linear-gradient(150deg, rgba(255,255,255,.16), rgba(255,255,255,.05));border:1px solid var(--glass-bd);transform:rotateY(180deg);justify-content:space-between;backdrop-filter:blur(16px);}
 .card-back p{font-family:'Caveat',cursive;font-size:1.35rem;line-height:1.35;color:var(--ink);margin:0;overflow:hidden;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;}
-.card-back .from{font-size:.72rem;color:var(--ink-faint);border-top:1px dashed var(--glass-bd);padding-top:10px;}
-.empty{
-  grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--ink-faint);
-}
+.card-back .from{font-size:.72rem;color:var(--ink-faint);border-top:1px dashed var(--glass-bd);padding-top:10px;display:flex;justify-content:space-between;align-items:center;}
+.likebtn{border:none;background:rgba(255,255,255,.08);color:var(--rose);border-radius:999px;padding:5px 11px;font-size:.74rem;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:5px;transition:transform .2s var(--ease);}
+.likebtn:hover{transform:scale(1.06);}
+.likebtn.liked{background:rgba(255,107,157,.22);}
+.likebtn[disabled]{cursor:default;}
+.empty{grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--ink-faint);}
 .empty .glyph{font-size:2.4rem;margin-bottom:10px;}
 
-/* destaque do dia */
-.destaque{
-  position:relative;padding:26px 26px 24px;margin-bottom:26px;overflow:hidden;
-  border:1px solid rgba(232,196,104,.35);
-}
-.destaque::before{
-  content:'';position:absolute;inset:-2px;border-radius:inherit;padding:2px;
-  background:conic-gradient(from var(--ang,0deg), var(--gold), var(--rose), var(--mint), var(--lilac), var(--gold));
-  -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite:xor; mask-composite:exclude;
-  opacity:.55; animation:spin 6s linear infinite;
-}
+.destaque{position:relative;padding:26px 26px 24px;margin-bottom:26px;overflow:hidden;border:1px solid rgba(232,196,104,.35);}
+.destaque::before{content:'';position:absolute;inset:-2px;border-radius:inherit;padding:2px;background:conic-gradient(from var(--ang,0deg), var(--gold), var(--rose), var(--mint), var(--lilac), var(--gold));-webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:.55;animation:spin 6s linear infinite;}
 @keyframes spin{to{--ang:360deg;}}
 @property --ang{syntax:'<angle>';inherits:false;initial-value:0deg;}
 .destaque .tag{display:flex;align-items:center;gap:8px;font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--gold-soft);margin-bottom:10px;}
@@ -288,12 +168,17 @@ main{max-width:1280px;margin:0 auto;padding:10px clamp(16px,5vw,60px) 120px;posi
 .destaque p{font-family:'Caveat',cursive;font-size:1.55rem;line-height:1.3;color:var(--ink);margin:0;flex:1;min-width:200px;}
 .destaque .meta{font-size:.78rem;color:var(--ink-faint);white-space:nowrap;}
 
-/* pricing / planos */
+.banner{display:flex;align-items:center;gap:12px;padding:14px 18px;border-radius:var(--radius-sm);font-size:.86rem;margin-bottom:20px;}
+.banner.warn{background:rgba(255,107,157,.12);border:1px solid rgba(255,107,157,.3);color:#ffc7d8;}
+.banner.info{background:rgba(127,232,201,.1);border:1px solid rgba(127,232,201,.3);color:var(--mint);}
+.banner.error{background:rgba(255,90,110,.12);border:1px solid rgba(255,90,110,.35);color:#ffb3bf;white-space:pre-wrap;font-family:monospace;font-size:.76rem;line-height:1.5;}
+
 .plans{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px;}
 @media(max-width:520px){.plans{grid-template-columns:1fr;}}
 .plan{padding:20px;cursor:pointer;border:1px solid var(--glass-bd);transition:all .3s var(--ease);position:relative;}
 .plan:hover{transform:translateY(-3px);}
 .plan.sel{border-color:var(--gold-soft);box-shadow:0 0 0 3px rgba(232,196,104,.18);}
+.plan.disabled{opacity:.4;cursor:not-allowed;pointer-events:none;}
 .plan .top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;}
 .plan .top .ic{font-size:1.4rem;}
 .plan .price{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:600;}
@@ -302,31 +187,8 @@ main{max-width:1280px;margin:0 auto;padding:10px clamp(16px,5vw,60px) 120px;posi
 .plan ul{margin:0;padding:0;list-style:none;font-size:.78rem;color:var(--ink-dim);display:flex;flex-direction:column;gap:5px;}
 .plan ul li::before{content:'✓ ';color:var(--mint);font-weight:700;}
 .plan .badge-pop{position:absolute;top:-10px;right:16px;background:linear-gradient(135deg,var(--rose),#e8497a);color:#fff;font-size:.62rem;font-weight:800;padding:4px 10px;border-radius:999px;text-transform:uppercase;letter-spacing:.06em;box-shadow:0 6px 14px -4px rgba(255,107,157,.6);}
+.plan .badge-esgotado{position:absolute;top:-10px;right:16px;background:rgba(255,255,255,.14);color:var(--ink-dim);font-size:.62rem;font-weight:800;padding:4px 10px;border-radius:999px;text-transform:uppercase;letter-spacing:.06em;}
 
-/* payment badges + admin extras */
-.badge.gratuito{background:rgba(183,172,217,.15);color:var(--ink-dim);}
-.badge.pendente_pg{background:rgba(232,196,104,.15);color:var(--gold-soft);}
-.badge.pago{background:rgba(127,232,201,.15);color:var(--mint);}
-
-/* flying envelope on send */
-.flyenv{
-  position:fixed;width:46px;height:32px;border-radius:6px;z-index:300;pointer-events:none;
-  background:linear-gradient(155deg, rgba(255,255,255,.5), rgba(255,255,255,.15));
-  border:1px solid rgba(255,255,255,.55);box-shadow:0 10px 24px -8px rgba(0,0,0,.5);
-  transition:all .9s cubic-bezier(.6,-.2,.3,1.3);
-}
-
-/* sparkles */
-.sparkle{position:fixed;pointer-events:none;z-index:40;border-radius:50%;transform:translate(-50%,-50%);animation:sparkleFade .8s ease-out forwards;}
-@keyframes sparkleFade{0%{opacity:1;transform:translate(-50%,-50%) scale(1);}100%{opacity:0;transform:translate(-50%,-50%) scale(.2) translateY(-14px);}}
-
-/* payment modal */
-.paylink-box{
-  display:flex;align-items:center;gap:10px;background:rgba(0,0,0,.25);border:1px solid var(--glass-bd);
-  border-radius:var(--radius-sm);padding:12px 14px;font-size:.78rem;color:var(--ink-dim);word-break:break-all;margin:14px 0;
-}
-
-/* ============ ENVIAR — compose ============ */
 .compose-wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:start;}
 @media(max-width:860px){.compose-wrap{grid-template-columns:1fr;}}
 .form-card{padding:30px clamp(20px,3vw,36px);}
@@ -334,89 +196,60 @@ main{max-width:1280px;margin:0 auto;padding:10px clamp(16px,5vw,60px) 120px;posi
 .field label{display:block;font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-faint);margin-bottom:8px;}
 .field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
 @media(max-width:520px){.field-row{grid-template-columns:1fr;}}
-input[type=text], textarea, select{
-  width:100%;padding:13px 15px;border-radius:var(--radius-sm);
-  background:rgba(0,0,0,.18);border:1px solid var(--glass-bd);color:var(--ink);
+input[type=text],input[type=email],input[type=password],input[type=number],textarea,select{
+  width:100%;padding:13px 15px;border-radius:var(--radius-sm);background:rgba(0,0,0,.18);border:1px solid var(--glass-bd);color:var(--ink);
   font-family:inherit;font-size:.94rem;transition:border-color .25s, box-shadow .25s;
 }
 input::placeholder, textarea::placeholder{color:var(--ink-faint);}
 input:focus, textarea:focus, select:focus{outline:none;border-color:var(--gold-soft);box-shadow:0 0 0 3px rgba(232,196,104,.18);}
 textarea{resize:vertical;min-height:110px;line-height:1.5;}
 .charcount{text-align:right;font-size:.72rem;color:var(--ink-faint);margin-top:5px;}
-
 .envelope-swatches{display:flex;gap:10px;}
-.swatch{
-  width:44px;height:44px;border-radius:50%;cursor:pointer;position:relative;
-  border:2px solid transparent;transition:transform .25s var(--ease);
-}
+.swatch{width:44px;height:44px;border-radius:50%;cursor:pointer;position:relative;border:2px solid transparent;transition:transform .25s var(--ease);}
 .swatch:hover{transform:translateY(-3px);}
 .swatch.sel{border-color:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.18);}
 .swatch[data-c="dourado"]{background:radial-gradient(circle at 35% 30%,#f6df9e,#d9a94e);}
 .swatch[data-c="rosa"]{background:radial-gradient(circle at 35% 30%,#ffb2cd,#ff6b9d);}
 .swatch[data-c="menta"]{background:radial-gradient(circle at 35% 30%,#c3f7e6,#7fe8c9);}
 .swatch[data-c="lilas"]{background:radial-gradient(circle at 35% 30%,#ddccff,#b79cf2);}
-
 .switch-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-top:1px dashed var(--glass-bd);margin-top:6px;}
 .switch-row span{font-size:.86rem;color:var(--ink-dim);}
 .switch{width:44px;height:26px;border-radius:999px;background:rgba(255,255,255,.12);position:relative;cursor:pointer;flex-shrink:0;transition:background .25s;}
 .switch::after{content:'';position:absolute;width:20px;height:20px;border-radius:50%;background:#fff;top:3px;left:3px;transition:transform .3s var(--ease);box-shadow:0 2px 4px rgba(0,0,0,.3);}
 .switch.on{background:linear-gradient(135deg,var(--gold),#d9a94e);}
 .switch.on::after{transform:translateX(18px);}
-
-.seal-submit{
-  width:100%;margin-top:16px;padding:16px;border-radius:999px;border:none;cursor:pointer;
-  background:linear-gradient(135deg,var(--gold),#d9a94e);color:#241503;font-weight:800;font-size:1rem;
-  display:flex;align-items:center;justify-content:center;gap:10px;
-  box-shadow:0 16px 32px -12px rgba(232,196,104,.55);
-  transition:transform .18s var(--ease);
-}
+.seal-submit{width:100%;margin-top:16px;padding:16px;border-radius:999px;border:none;cursor:pointer;background:linear-gradient(135deg,var(--gold),#d9a94e);color:#241503;font-weight:800;font-size:1rem;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 16px 32px -12px rgba(232,196,104,.55);transition:transform .18s var(--ease);}
 .seal-submit:active{transform:scale(.94) rotate(-1deg);}
 .seal-submit.sending{pointer-events:none;opacity:.75;}
+.seal-submit[disabled]{opacity:.4;pointer-events:none;}
 
-/* live preview envelope */
 .preview-card{padding:28px;display:flex;flex-direction:column;align-items:center;gap:18px;position:sticky;top:96px;}
 .preview-env{width:100%;max-width:260px;aspect-ratio:3/2;position:relative;perspective:1000px;}
 .preview-env-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .5s var(--ease);}
-.preview-env .body{
-  position:absolute;inset:0;border-radius:16px;
-  background:linear-gradient(155deg, rgba(255,255,255,.24), rgba(255,255,255,.04) 60%);
-  border:1px solid rgba(255,255,255,.35);box-shadow:0 26px 50px -20px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.4);
-}
-.preview-env .flap{
-  position:absolute;left:0;right:0;top:0;height:56%;
-  background:linear-gradient(160deg, rgba(255,255,255,.32), rgba(255,255,255,.06));
-  clip-path:polygon(0 0,100% 0,50% 92%);border-radius:16px 16px 0 0;
-  border:1px solid rgba(255,255,255,.4);border-bottom:none;
-  transform-origin:top center;transition:transform .6s var(--ease);
-}
+.preview-env .body{position:absolute;inset:0;border-radius:16px;background:linear-gradient(155deg, rgba(255,255,255,.24), rgba(255,255,255,.04) 60%);border:1px solid rgba(255,255,255,.35);box-shadow:0 26px 50px -20px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.4);}
+.preview-env .flap{position:absolute;left:0;right:0;top:0;height:56%;background:linear-gradient(160deg, rgba(255,255,255,.32), rgba(255,255,255,.06));clip-path:polygon(0 0,100% 0,50% 92%);border-radius:16px 16px 0 0;border:1px solid rgba(255,255,255,.4);border-bottom:none;transform-origin:top center;transition:transform .6s var(--ease);}
 .preview-env.open .flap{transform:rotateX(-160deg);}
-.preview-env .seal{
-  position:absolute;left:50%;top:36%;width:15%;aspect-ratio:1;margin-left:-7.5%;border-radius:50%;
-  background:radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--c,#e8c468) 88%, white), var(--c,#e8c468) 75%);
-  box-shadow:0 8px 16px -4px rgba(0,0,0,.5);z-index:2;
-}
+.preview-env .seal{position:absolute;left:50%;top:36%;width:15%;aspect-ratio:1;margin-left:-7.5%;border-radius:50%;background:radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--c,#e8c468) 88%, white), var(--c,#e8c468) 75%);box-shadow:0 8px 16px -4px rgba(0,0,0,.5);z-index:2;}
 .preview-hint{font-size:.8rem;color:var(--ink-faint);text-align:center;}
 
-/* ============ MINHA CAIXA ============ */
 .box-lookup{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:26px;}
 .box-lookup input{flex:1;min-width:160px;}
 .letter-list{display:flex;flex-direction:column;gap:14px;}
-.letter-item{
-  padding:18px 20px;display:flex;gap:16px;align-items:flex-start;cursor:pointer;
-  transition:transform .3s var(--ease);
-}
+.letter-item{padding:18px 20px;display:flex;gap:16px;align-items:flex-start;cursor:pointer;transition:transform .3s var(--ease);}
 .letter-item:hover{transform:translateX(4px);}
 .letter-item .dot{width:12px;height:12px;border-radius:50%;margin-top:6px;flex-shrink:0;box-shadow:0 0 0 4px rgba(255,255,255,.06);}
 .letter-item .body{flex:1;}
 .letter-item .body .top{display:flex;justify-content:space-between;gap:10px;font-size:.72rem;color:var(--ink-faint);}
-.letter-item .body p{margin:6px 0 0;font-family:'Caveat',cursive;font-size:1.2rem;color:var(--ink-dim);}
+.letter-item .body p{margin:6px 0 0;font-family:'Caveat',cursive;font-size:1.2rem;color:var(--ink-dim);overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
 .letter-item.open .body p{color:var(--ink);-webkit-line-clamp:unset;}
-.letter-item .body p{overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
 
-/* ============ ADMIN ============ */
-.gate{max-width:420px;margin:60px auto;padding:36px;text-align:center;}
-.gate h3{margin:14px 0 6px;font-size:1.4rem;}
-.gate p{color:var(--ink-dim);font-size:.88rem;margin-bottom:20px;}
+/* auth */
+.authtabs{display:flex;gap:6px;background:rgba(255,255,255,.05);border:1px solid var(--glass-bd);padding:4px;border-radius:999px;margin-bottom:20px;width:fit-content;}
+.authtabs button{border:none;background:transparent;color:var(--ink-dim);padding:8px 18px;border-radius:999px;font-size:.82rem;font-weight:700;cursor:pointer;}
+.authtabs button.active{background:linear-gradient(135deg,var(--gold),#d9a94e);color:#241503;}
+.authpane{display:none;}
+.authpane.active{display:block;}
+
 .stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;margin-bottom:26px;}
 .stat{padding:20px;}
 .stat .n{font-family:'Fraunces',serif;font-size:2rem;font-weight:600;}
@@ -426,28 +259,29 @@ textarea{resize:vertical;min-height:110px;line-height:1.5;}
 .admin-table td{padding:12px;border-bottom:1px solid rgba(255,255,255,.06);vertical-align:top;}
 .admin-table tr:hover td{background:rgba(255,255,255,.03);}
 .msgpeek{max-width:260px;color:var(--ink-dim);font-style:italic;}
-.badge{padding:4px 10px;border-radius:999px;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;}
+.badge{padding:4px 10px;border-radius:999px;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;display:inline-block;}
 .badge.pendente{background:rgba(232,196,104,.15);color:var(--gold-soft);}
 .badge.aprovada{background:rgba(127,232,201,.15);color:var(--mint);}
 .badge.rejeitada{background:rgba(255,107,157,.15);color:var(--rose);}
-.rowbtns{display:flex;gap:6px;}
+.badge.gratuito{background:rgba(183,172,217,.15);color:var(--ink-dim);}
+.badge.pendente_pg{background:rgba(232,196,104,.15);color:var(--gold-soft);}
+.badge.pago{background:rgba(127,232,201,.15);color:var(--mint);}
+.rowbtns{display:flex;gap:6px;flex-wrap:wrap;}
 .iconbtn{width:30px;height:30px;border-radius:8px;border:1px solid var(--glass-bd);background:rgba(255,255,255,.05);color:var(--ink-dim);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
 .iconbtn:hover{background:rgba(255,255,255,.12);color:var(--ink);}
 .admin-table-wrap{overflow-x:auto;padding:8px;}
 .admin-toolbar{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px;}
+.gate{max-width:460px;margin:40px auto;padding:36px;text-align:center;}
+.gate h3{margin:14px 0 6px;font-size:1.4rem;}
+.gate p{color:var(--ink-dim);font-size:.88rem;margin-bottom:10px;}
 
-.config-box{padding:26px;margin-top:30px;}
-.config-box textarea, .config-box input{font-family:monospace;font-size:.82rem;}
-.config-box .sql{
-  background:rgba(0,0,0,.35);border-radius:var(--radius-sm);padding:16px;font-family:monospace;
-  font-size:.76rem;color:var(--mint);white-space:pre-wrap;line-height:1.6;max-height:260px;overflow:auto;border:1px solid var(--glass-bd);
-}
-.tag-mode{display:inline-flex;align-items:center;gap:6px;font-size:.75rem;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid var(--glass-bd);color:var(--ink-dim);}
-.tag-mode.live{color:var(--mint);}
-.tag-mode .dotpulse{width:7px;height:7px;border-radius:50%;background:currentColor;box-shadow:0 0 0 currentColor;animation:pulse 2s infinite;}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(127,232,201,.5);}70%{box-shadow:0 0 0 8px rgba(127,232,201,0);}100%{box-shadow:0 0 0 0 rgba(127,232,201,0);}}
+.config-box{padding:26px;margin-top:22px;}
+.config-box .sql{background:rgba(0,0,0,.35);border-radius:var(--radius-sm);padding:16px;font-family:monospace;font-size:.74rem;color:var(--mint);white-space:pre-wrap;line-height:1.6;max-height:320px;overflow:auto;border:1px solid var(--glass-bd);}
+.settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+@media(max-width:600px){.settings-grid{grid-template-columns:1fr;}}
+.admins-list{display:flex;flex-direction:column;gap:8px;font-size:.84rem;color:var(--ink-dim);}
+.admins-list .row{display:flex;justify-content:space-between;padding:8px 12px;background:rgba(255,255,255,.04);border-radius:10px;}
 
-/* ============ MODALS / TOASTS ============ */
 .overlay{position:fixed;inset:0;background:rgba(8,5,20,.62);backdrop-filter:blur(6px);z-index:100;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .3s;}
 .overlay.show{opacity:1;pointer-events:auto;}
 .modal{max-width:440px;width:100%;padding:32px;transform:translateY(18px) scale(.97);transition:transform .35s var(--ease);}
@@ -459,23 +293,21 @@ textarea{resize:vertical;min-height:110px;line-height:1.5;}
 
 #toasts{position:fixed;bottom:90px;right:20px;z-index:200;display:flex;flex-direction:column;gap:10px;align-items:flex-end;}
 @media(max-width:880px){#toasts{bottom:100px;right:12px;left:12px;align-items:center;}}
-.toast{
-  padding:14px 18px;border-radius:14px;display:flex;align-items:center;gap:10px;
-  animation:toastIn .4s var(--ease);font-size:.86rem;font-weight:600;max-width:340px;
-}
+.toast{padding:14px 18px;border-radius:14px;display:flex;align-items:center;gap:10px;animation:toastIn .4s var(--ease);font-size:.86rem;font-weight:600;max-width:340px;}
 @keyframes toastIn{from{opacity:0;transform:translateY(12px) scale(.94);}to{opacity:1;transform:translateY(0) scale(1);}}
 .toast.ok{background:rgba(127,232,201,.14);border:1px solid rgba(127,232,201,.35);color:var(--mint);}
 .toast.err{background:rgba(255,107,157,.14);border:1px solid rgba(255,107,157,.35);color:var(--rose);}
+.toast.info{background:rgba(183,156,242,.14);border:1px solid rgba(183,156,242,.35);color:var(--lilac);}
 
-/* confetti canvas */
 #confetti{position:fixed;inset:0;pointer-events:none;z-index:150;}
+.flyenv{position:fixed;width:46px;height:32px;border-radius:6px;z-index:300;pointer-events:none;background:linear-gradient(155deg, rgba(255,255,255,.5), rgba(255,255,255,.15));border:1px solid rgba(255,255,255,.55);box-shadow:0 10px 24px -8px rgba(0,0,0,.5);transition:all .9s cubic-bezier(.6,-.2,.3,1.3);}
+.sparkle{position:fixed;pointer-events:none;z-index:40;border-radius:50%;transform:translate(-50%,-50%);animation:sparkleFade .8s ease-out forwards;}
+@keyframes sparkleFade{0%{opacity:1;transform:translate(-50%,-50%) scale(1);}100%{opacity:0;transform:translate(-50%,-50%) scale(.2) translateY(-14px);}}
+.paylink-box{display:flex;align-items:center;gap:10px;background:rgba(0,0,0,.25);border:1px solid var(--glass-bd);border-radius:var(--radius-sm);padding:12px 14px;font-size:.78rem;color:var(--ink-dim);word-break:break-all;margin:14px 0;}
 
 footer{text-align:center;padding:40px 20px 100px;color:var(--ink-faint);font-size:.78rem;position:relative;z-index:1;}
 footer strong{color:var(--ink-dim);}
-
-@media (prefers-reduced-motion: reduce){
-  *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;}
-}
+@media (prefers-reduced-motion: reduce){*{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;}}
 </style>
 </head>
 <body>
@@ -505,6 +337,7 @@ footer strong{color:var(--ink-dim);}
   </nav>
 
   <div class="who">
+    <div class="presence" id="presenceBadge" style="display:none;"><span class="dotpulse"></span><span id="presenceCount">1</span> <span class="plabel">por aqui agora</span></div>
     <div class="mailbox" id="mailboxBadge" title="Bilhetes selados hoje">
       <svg viewBox="0 0 24 24" fill="none" stroke="#F6F2FF" stroke-width="1.7"><rect x="2" y="6" width="20" height="14" rx="2.5"/><path d="M3 7l9 7 9-7" stroke-linecap="round" stroke-linejoin="round"/></svg>
       <span class="count" id="mailboxCount">0</span>
@@ -548,10 +381,7 @@ footer strong{color:var(--ink-dim);}
 
     <div class="glass destaque" id="destaqueBox" style="display:none;">
       <div class="tag">✦ Bilhete em destaque</div>
-      <div class="content">
-        <p id="destaqueTexto"></p>
-        <div class="meta" id="destaqueMeta"></div>
-      </div>
+      <div class="content"><p id="destaqueTexto"></p><div class="meta" id="destaqueMeta"></div></div>
     </div>
 
     <div class="chipbar">
@@ -575,6 +405,8 @@ footer strong{color:var(--ink-dim);}
       </div>
     </div>
 
+    <div id="quotaBanner"></div>
+
     <div class="plans" id="plansRow">
       <div class="plan sel" data-plan="gratuito">
         <div class="top"><span class="ic">🕊️</span><div class="price">Grátis</div></div>
@@ -592,24 +424,12 @@ footer strong{color:var(--ink-dim);}
     <div class="compose-wrap">
       <form class="glass form-card" id="composeForm">
         <div class="field-row">
-          <div class="field">
-            <label>Seu nome</label>
-            <input type="text" id="fRemetenteNome" placeholder="Como você se chama" required>
-          </div>
-          <div class="field">
-            <label>Sua turma</label>
-            <input type="text" id="fRemetenteTurma" placeholder="Ex: 9º B">
-          </div>
+          <div class="field"><label>Seu nome</label><input type="text" id="fRemetenteNome" placeholder="Como você se chama" required></div>
+          <div class="field"><label>Sua turma</label><input type="text" id="fRemetenteTurma" placeholder="Ex: 9º B"></div>
         </div>
         <div class="field-row">
-          <div class="field">
-            <label>Destinatário</label>
-            <input type="text" id="fDestNome" placeholder="Nome de quem vai receber" required>
-          </div>
-          <div class="field">
-            <label>Turma do destinatário</label>
-            <input type="text" id="fDestTurma" placeholder="Ex: 7º A (ou deixe em branco)">
-          </div>
+          <div class="field"><label>Destinatário</label><input type="text" id="fDestNome" placeholder="Nome de quem vai receber" required></div>
+          <div class="field"><label>Turma do destinatário</label><input type="text" id="fDestTurma" placeholder="Ex: 7º A (ou deixe em branco)"></div>
         </div>
         <div class="field">
           <label>Mensagem</label>
@@ -625,25 +445,15 @@ footer strong{color:var(--ink-dim);}
             <div class="swatch" data-c="lilas"></div>
           </div>
         </div>
-        <div class="switch-row">
-          <span>Enviar como anônimo</span>
-          <div class="switch" id="anonSwitch"></div>
-        </div>
-        <div class="switch-row">
-          <span>Mostrar também no mural público (se aprovado)</span>
-          <div class="switch on" id="publicSwitch"></div>
-        </div>
+        <div class="switch-row"><span>Enviar como anônimo</span><div class="switch" id="anonSwitch"></div></div>
+        <div class="switch-row"><span>Mostrar também no mural público (se aprovado)</span><div class="switch on" id="publicSwitch"></div></div>
         <button type="submit" class="seal-submit" id="submitBtn">🖋️ Selar e enviar</button>
       </form>
 
       <div class="glass preview-card">
         <div class="eyebrow">Pré-visualização</div>
         <div class="preview-env" id="previewEnv" style="--c:#e8c468">
-          <div class="preview-env-inner">
-            <div class="seal" id="previewSealIcon"></div>
-            <div class="flap"></div>
-            <div class="body"></div>
-          </div>
+          <div class="preview-env-inner"><div class="seal" id="previewSealIcon"></div><div class="flap"></div><div class="body"></div></div>
         </div>
         <div class="preview-hint">Toque no envelope para simular a abertura</div>
       </div>
@@ -653,11 +463,7 @@ footer strong{color:var(--ink-dim);}
   <!-- ===================== MINHA CAIXA ===================== -->
   <section class="view" id="view-caixa">
     <div class="section-head">
-      <div>
-        <div class="eyebrow">Sua correspondência</div>
-        <h2>Minha caixa</h2>
-        <p>Digite seu nome e turma (do jeito que você usou ao mandar recados) para ver o que chegou pra você.</p>
-      </div>
+      <div><div class="eyebrow">Sua correspondência</div><h2>Minha caixa</h2><p>Digite seu nome e turma (do jeito que você usou ao mandar recados) para ver o que chegou pra você.</p></div>
     </div>
     <div class="glass" style="padding:22px;">
       <div class="box-lookup">
@@ -674,32 +480,65 @@ footer strong{color:var(--ink-dim);}
     <div id="adminGate" class="glass gate">
       <div style="font-size:2.2rem;">🔐</div>
       <h3>Área da administração</h3>
-      <p>Acesso restrito à equipe responsável pela moderação dos bilhetes.</p>
-      <input type="text" id="adminPass" placeholder="Senha de administrador" style="text-align:center;margin-bottom:14px;">
-      <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="tryAdminLogin()">Entrar</button>
-      <p style="margin-top:14px;font-size:.72rem;">Senha padrão de demonstração: <strong>escola123</strong> — altere em Configuração.</p>
+      <p id="gateSubtitle">Acesso restrito à equipe responsável pela moderação dos bilhetes.</p>
+
+      <div class="authtabs" id="authTabs" style="margin:18px auto 0;">
+        <button class="active" data-pane="login">Entrar</button>
+        <button data-pane="cadastro">Criar conta admin</button>
+      </div>
+
+      <div class="authpane active" id="pane-login" style="text-align:left;margin-top:16px;">
+        <div class="field"><label>E-mail</label><input type="email" id="loginEmail" placeholder="voce@escola.com"></div>
+        <div class="field"><label>Senha</label><input type="password" id="loginSenha" placeholder="Sua senha"></div>
+        <button class="btn btn-primary btn-block" onclick="doLogin()">Entrar</button>
+        <p id="demoPassHint" style="margin-top:14px;font-size:.72rem;display:none;">Modo demonstração (sem Supabase conectado) — senha padrão: <strong>escola123</strong>.</p>
+      </div>
+
+      <div class="authpane" id="pane-cadastro" style="text-align:left;margin-top:16px;">
+        <p style="font-size:.8rem;">Só quem tiver o <strong>código de convite</strong> definido pela escola consegue criar uma conta de administrador.</p>
+        <div class="field"><label>Código de convite</label><input type="text" id="cadConvite" placeholder="Código fornecido pela escola"></div>
+        <div class="field"><label>E-mail</label><input type="email" id="cadEmail" placeholder="voce@escola.com"></div>
+        <div class="field"><label>Senha</label><input type="password" id="cadSenha" placeholder="Crie uma senha (mín. 6 caracteres)"></div>
+        <button class="btn btn-primary btn-block" onclick="doSignup()">Criar conta de administrador</button>
+      </div>
     </div>
 
     <div id="adminPanel" style="display:none;">
       <div class="section-head">
-        <div>
-          <div class="eyebrow">Painel administrativo</div>
-          <h2>Gestão de mensagens</h2>
-          <p>Aprove, rejeite ou remova bilhetes enviados pelos alunos.</p>
-        </div>
-        <button class="btn btn-ghost btn-sm" onclick="adminLogout()">Sair</button>
+        <div><div class="eyebrow">Painel administrativo</div><h2>Gestão de mensagens</h2><p id="adminWhoami">—</p></div>
+        <button class="btn btn-ghost btn-sm" onclick="doLogout()">Sair</button>
       </div>
 
       <div class="stat-row" id="statRow"></div>
 
-      <div class="admin-toolbar">
+      <div class="glass config-box">
+        <div class="eyebrow">Bilhetes grátis</div>
+        <h3 style="margin:8px 0 14px;">Controle de disponibilidade</h3>
+        <div class="settings-grid">
+          <div class="switch-row" style="border:none;padding:0;">
+            <span>Bilhetes grátis ativos</span>
+            <div class="switch on" id="freeToggle"></div>
+          </div>
+          <div class="field" style="margin:0;">
+            <label>Limite grátis por dia (0 = sem limite)</label>
+            <input type="number" min="0" id="freeLimit" placeholder="0">
+          </div>
+        </div>
+        <button class="btn btn-primary btn-sm" style="margin-top:14px;" onclick="saveFreeSettings()">Salvar disponibilidade</button>
+        <span id="freeUsedTag" style="margin-left:10px;font-size:.78rem;color:var(--ink-faint);"></span>
+      </div>
+
+      <div class="admin-toolbar" style="margin-top:26px;">
         <div class="chipbar" style="margin:0;" id="adminFilterChips">
           <div class="chip active" data-status="todos">Todos</div>
           <div class="chip" data-status="pendente">Pendentes</div>
           <div class="chip" data-status="aprovada">Aprovadas</div>
           <div class="chip" data-status="rejeitada">Rejeitadas</div>
         </div>
-        <input type="text" id="adminSearch" placeholder="Buscar por nome..." style="max-width:220px;">
+        <div style="display:flex;gap:8px;">
+          <input type="text" id="adminSearch" placeholder="Buscar por nome..." style="max-width:220px;">
+          <button class="btn btn-ghost btn-sm" onclick="exportCSV()">⬇ CSV</button>
+        </div>
       </div>
 
       <div class="glass admin-table-wrap">
@@ -710,49 +549,39 @@ footer strong{color:var(--ink-dim);}
       </div>
 
       <div class="glass config-box">
-        <div class="eyebrow">Configuração</div>
-        <h3 style="margin:8px 0 4px;">Conectar ao Supabase</h3>
-        <p style="color:var(--ink-dim);font-size:.86rem;margin-bottom:16px;">Cole a URL e a chave anônima (anon key) do seu projeto Supabase para usar um banco de dados real. Sem isso, o site funciona em <strong>modo de demonstração local</strong> (dados salvos apenas neste navegador).</p>
-        <div class="field">
-          <label>Nome da escola</label>
-          <input type="text" id="cfgSchoolName" placeholder="Nome da sua escola">
+        <div class="eyebrow">Equipe</div>
+        <h3 style="margin:8px 0 14px;">Quem tem acesso de administrador</h3>
+        <div class="admins-list" id="adminsList"></div>
+      </div>
+
+      <div class="glass config-box">
+        <div class="eyebrow">Conexão</div>
+        <h3 style="margin:8px 0 4px;">Supabase</h3>
+        <p style="color:var(--ink-dim);font-size:.86rem;margin-bottom:16px;">Cole a URL e a chave anônima (anon key) do seu projeto. Depois de rodar o SQL abaixo, use "Testar conexão" — se algo estiver errado, o erro exato do Supabase aparece aqui.</p>
+        <div class="field"><label>Nome da escola</label><input type="text" id="cfgSchoolName" placeholder="Nome da sua escola"></div>
+        <div class="field"><label>Supabase URL</label><input type="text" id="cfgUrl" placeholder="https://xxxxx.supabase.co"></div>
+        <div class="field"><label>Supabase Anon Key</label><input type="text" id="cfgKey" placeholder="eyJhbGciOi..."></div>
+        <div class="field"><label>Senha de administrador (modo demonstração, sem Supabase)</label><input type="text" id="cfgPass" placeholder="escola123"></div>
+        <div style="display:flex;gap:10px;margin:14px 0 14px;flex-wrap:wrap;">
+          <button class="btn btn-primary btn-sm" onclick="saveConnectionConfig()">Salvar conexão</button>
+          <button class="btn btn-ghost btn-sm" onclick="testConnection()">🔎 Testar conexão</button>
+          <button class="btn btn-ghost btn-sm" onclick="clearConnectionConfig()">Voltar ao modo demo</button>
         </div>
-        <div class="field">
-          <label>Supabase URL</label>
-          <input type="text" id="cfgUrl" placeholder="https://xxxxx.supabase.co">
-        </div>
-        <div class="field">
-          <label>Supabase Anon Key</label>
-          <input type="text" id="cfgKey" placeholder="eyJhbGciOi...">
-        </div>
-        <div class="field">
-          <label>Senha de administrador</label>
-          <input type="text" id="cfgPass" placeholder="escola123">
-        </div>
-        <div style="display:flex;gap:10px;margin:14px 0 22px;">
-          <button class="btn btn-primary btn-sm" onclick="saveConfig()">Salvar configuração</button>
-          <button class="btn btn-ghost btn-sm" onclick="clearConfig()">Voltar ao modo demo</button>
-        </div>
-        <label style="font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-faint);">SQL para criar a tabela no Supabase</label>
+        <div id="connError"></div>
+        <label style="font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-faint);">SQL completo para colar no SQL Editor do Supabase</label>
         <div class="sql" id="sqlBlock"></div>
+        <p style="font-size:.76rem;color:var(--ink-faint);margin-top:10px;">Depois de criar a primeira conta admin, troque o código de convite (tabela <code>admin_convites</code>) e, para segurança extra, desative cadastros públicos em Authentication → Settings no painel do Supabase — assim ninguém cria conta sem passar por você.</p>
       </div>
 
       <div class="glass config-box">
         <div class="eyebrow">Pagamentos</div>
         <h3 style="margin:8px 0 4px;">Selo Premium com Stripe</h3>
-        <p style="color:var(--ink-dim);font-size:.86rem;margin-bottom:16px;">Crie um <strong>Payment Link</strong> gratuitamente no painel do Stripe (Stripe Dashboard → Payment Links) e cole a URL abaixo. Cada bilhete premium gera automaticamente um link próprio, com o ID do bilhete anexado em <code>client_reference_id</code>, para você conseguir conferir no Stripe qual pagamento pertence a qual bilhete.</p>
-        <div class="field">
-          <label>Stripe Payment Link (URL)</label>
-          <input type="text" id="cfgStripeLink" placeholder="https://buy.stripe.com/xxxxxxxx">
-        </div>
-        <div class="field">
-          <label>Preço do selo premium (R$)</label>
-          <input type="text" id="cfgStripePrice" placeholder="5">
-        </div>
-        <div style="display:flex;gap:10px;margin-top:6px;">
-          <button class="btn btn-primary btn-sm" onclick="saveConfig()">Salvar</button>
-          <span class="tag-mode" id="stripeTag" style="align-self:center;"><span class="dotpulse"></span> <span id="stripeTagText">Stripe não configurado</span></span>
-        </div>
+        <p style="color:var(--ink-dim);font-size:.86rem;margin-bottom:16px;">Crie um <strong>Payment Link</strong> gratuitamente no painel do Stripe (Dashboard → Payment Links) e cole a URL abaixo. Essas configurações ficam salvas no Supabase e valem para todos os visitantes do site — não só para o seu navegador.</p>
+        <div class="field"><label>Stripe Payment Link (URL)</label><input type="text" id="cfgStripeLink" placeholder="https://buy.stripe.com/xxxxxxxx"></div>
+        <div class="field"><label>Preço do selo premium (R$)</label><input type="text" id="cfgStripePrice" placeholder="5"></div>
+        <button class="btn btn-primary btn-sm" onclick="saveSharedSettings()">Salvar</button>
+        <span class="tag-mode" id="stripeTag" style="margin-left:10px;"><span class="dotpulse"></span> <span id="stripeTagText">Stripe não configurado</span></span>
+        <p style="font-size:.76rem;color:var(--ink-faint);margin-top:14px;">Nota honesta: confirmar pagamento automaticamente exige um backend recebendo o webhook do Stripe. Sem servidor próprio, isso ainda é possível 100% dentro do Supabase usando uma <strong>Edge Function</strong> — o SQL acima já deixa a tabela pronta para isso. Enquanto isso não estiver configurado, confirme os pagamentos manualmente aqui na tabela (botão 💳) conferindo no seu painel do Stripe.</p>
       </div>
     </div>
   </section>
@@ -761,7 +590,6 @@ footer strong{color:var(--ink-dim);}
 
 <footer>Feito com <strong>♥</strong> para a comunidade escolar — bilhetes gentis fazem escolas melhores.</footer>
 
-<!-- Identity modal -->
 <div class="overlay" id="identityOverlay">
   <div class="glass modal">
     <h3>Como você se chama?</h3>
@@ -775,7 +603,6 @@ footer strong{color:var(--ink-dim);}
   </div>
 </div>
 
-<!-- Payment modal -->
 <div class="overlay" id="paymentOverlay">
   <div class="glass modal">
     <h3 id="paymentTitle">💎 Selo Premium</h3>
@@ -790,81 +617,128 @@ footer strong{color:var(--ink-dim);}
 
 <script type="module">
 /* =====================================================================
-   CORREIO ELEGANTE — camada de dados
-   Troca automaticamente entre Supabase (se configurado) e um "modo demo"
-   local (localStorage), para que o site funcione imediatamente.
+   CORREIO ELEGANTE — camada de dados real com Supabase
+   ---------------------------------------------------------------------
+   Para produção: preencha SUPABASE_URL_PADRAO / SUPABASE_ANON_KEY_PADRAO
+   abaixo com os dados do seu projeto e publique o arquivo assim — todo
+   visitante conecta automaticamente, sem precisar configurar nada pelo
+   navegador. Enquanto isso não for feito, a conexão pode ser testada
+   pelo painel Admin (fica salva só no seu navegador, útil para testes).
 ===================================================================== */
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
-const LS_MSGS = 'ce_mensagens_v1';
-const LS_CFG  = 'ce_config_v1';
-const LS_ID   = 'ce_identidade_v1';
+const SUPABASE_URL_PADRAO = '';
+const SUPABASE_ANON_KEY_PADRAO = '';
 
-function loadConfig(){
-  try{ return JSON.parse(localStorage.getItem(LS_CFG)) || {}; }catch(e){ return {}; }
+const LS_MSGS   = 'ce_mensagens_v2';
+const LS_CONN   = 'ce_conexao_v2';
+const LS_ID     = 'ce_identidade_v1';
+const LS_DEMO   = 'ce_config_demo_v2';
+const LS_COUNT  = 'ce_contagem_diaria';
+const LS_LIKES  = 'ce_curtidas_v1';
+
+function loadConn(){
+  try{ return JSON.parse(localStorage.getItem(LS_CONN)) || {}; }catch(e){ return {}; }
 }
-let CFG = loadConfig();
+function loadDemoSettings(){
+  try{ return Object.assign({ nome_escola:'Nossa Escola', stripe_link:'', stripe_price:5, bilhetes_gratis_ativos:true, limite_gratis_diario:0, adminPass:'escola123' }, JSON.parse(localStorage.getItem(LS_DEMO))||{}); }catch(e){
+    return { nome_escola:'Nossa Escola', stripe_link:'', stripe_price:5, bilhetes_gratis_ativos:true, limite_gratis_diario:0, adminPass:'escola123' };
+  }
+}
+let CONN = loadConn();
 let supabase = null;
 let LIVE = false;
+let CONN_ERROR = '';
+let SETTINGS = loadDemoSettings();
+let SESSION = null;      // supabase auth session
+let ADMIN_OK = false;    // true = has admin access (real auth OR demo password)
+
+function connUrl(){ return SUPABASE_URL_PADRAO || CONN.url || ''; }
+function connKey(){ return SUPABASE_ANON_KEY_PADRAO || CONN.key || ''; }
 
 async function initSupabase(){
-  if(CFG.url && CFG.key){
-    try{
-      supabase = createClient(CFG.url, CFG.key);
-      // quick check
-      const { error } = await supabase.from('mensagens').select('id').limit(1);
-      if(error) throw error;
-      LIVE = true;
-    }catch(e){
-      console.warn('Supabase indisponível, usando modo demo local:', e.message);
-      LIVE = false;
-    }
-  } else {
+  const url = connUrl(), key = connKey();
+  CONN_ERROR = '';
+  if(!url || !key){ LIVE = false; updateModeTag(); return; }
+  try{
+    supabase = createClient(url, key);
+    const check1 = await supabase.from('mensagens').select('id').limit(1);
+    if(check1.error) throw check1.error;
+    const check2 = await supabase.from('configuracoes').select('*').eq('id',1).maybeSingle();
+    if(check2.error) throw check2.error;
+    LIVE = true;
+    if(check2.data) SETTINGS = normalizeSettings(check2.data);
+    const { data: sess } = await supabase.auth.getSession();
+    SESSION = sess.session || null;
+    ADMIN_OK = !!SESSION;
+    supabase.auth.onAuthStateChange((_evt, session)=>{
+      SESSION = session; ADMIN_OK = !!session;
+      if(document.getElementById('view-admin').classList.contains('active')) renderAdminGateState();
+    });
+    subscribeRealtime();
+  }catch(e){
     LIVE = false;
+    CONN_ERROR = (e && (e.message || e.error_description || JSON.stringify(e))) || 'Erro desconhecido ao conectar.';
+    console.warn('Supabase indisponível:', CONN_ERROR);
   }
   updateModeTag();
+  renderConnError();
 }
-
+function normalizeSettings(row){
+  return {
+    nome_escola: row.nome_escola || 'Nossa Escola',
+    stripe_link: row.stripe_link || '',
+    stripe_price: row.stripe_price || 5,
+    bilhetes_gratis_ativos: row.bilhetes_gratis_ativos !== false,
+    limite_gratis_diario: row.limite_gratis_diario || 0
+  };
+}
 function updateModeTag(){
   const tag = document.getElementById('modeTag');
   const txt = document.getElementById('modeTagText');
+  tag.classList.remove('live','error');
   if(LIVE){ tag.classList.add('live'); txt.textContent = 'Conectado ao Supabase'; }
-  else { tag.classList.remove('live'); txt.textContent = 'Modo demonstração local'; }
+  else if(CONN_ERROR){ tag.classList.add('error'); txt.textContent = 'Erro de conexão — veja Admin'; }
+  else { txt.textContent = 'Modo demonstração local'; }
+  document.getElementById('presenceBadge').style.display = LIVE ? 'flex' : 'none';
 }
+function renderConnError(){
+  const el = document.getElementById('connError');
+  if(!el) return;
+  el.innerHTML = CONN_ERROR ? `<div class="banner error">⚠ ${escapeHTML(CONN_ERROR)}</div>` : (LIVE ? `<div class="banner info">✓ Conectado com sucesso ao Supabase.</div>` : '');
+}
+window.testConnection = async function(){
+  toast('Testando conexão…', 'info');
+  await initSupabase();
+  toast(LIVE ? 'Conexão com o Supabase funcionando!' : 'Ainda não conectou — veja o erro abaixo do botão.', LIVE ? 'ok' : 'err');
+};
 
-function localAll(){
-  try{ return JSON.parse(localStorage.getItem(LS_MSGS)) || []; }catch(e){ return []; }
-}
+/* ===================== armazenamento local (modo demo) ===================== */
+function localAll(){ try{ return JSON.parse(localStorage.getItem(LS_MSGS)) || []; }catch(e){ return []; } }
 function localSave(arr){ localStorage.setItem(LS_MSGS, JSON.stringify(arr)); }
 function uid(){ return 'm_' + Math.random().toString(36).slice(2,10) + Date.now().toString(36); }
+function todayStartISO(){ const d = new Date(); d.setHours(0,0,0,0); return d.toISOString(); }
 
+/* ===================== camada de dados ===================== */
 const DB = {
   async add(msg){
     const row = {
-      id: uid(),
-      criado_em: new Date().toISOString(),
-      remetente_nome: msg.remetente_nome,
-      remetente_turma: msg.remetente_turma || '',
-      destinatario_nome: msg.destinatario_nome,
-      destinatario_turma: msg.destinatario_turma || '',
-      mensagem: msg.mensagem,
-      anonimo: !!msg.anonimo,
-      envelope_estilo: msg.envelope_estilo || 'dourado',
-      status: 'pendente',
-      publica: msg.publica !== false,
-      plano: msg.plano || 'gratuito',
-      valor: msg.valor || 0,
-      pagamento_status: msg.plano === 'premium' ? 'pendente_pg' : 'gratuito',
-      link_pagamento: ''
+      id: uid(), criado_em: new Date().toISOString(),
+      remetente_nome: msg.remetente_nome, remetente_turma: msg.remetente_turma || '',
+      destinatario_nome: msg.destinatario_nome, destinatario_turma: msg.destinatario_turma || '',
+      mensagem: msg.mensagem, anonimo: !!msg.anonimo, envelope_estilo: msg.envelope_estilo || 'dourado',
+      status: 'pendente', publica: msg.publica !== false, plano: msg.plano || 'gratuito',
+      valor: msg.valor || 0, pagamento_status: msg.plano === 'premium' ? 'pendente_pg' : 'gratuito',
+      link_pagamento: '', curtidas: 0
     };
     if(LIVE){
-      const { data, error } = await supabase.from('mensagens').insert(row).select().single();
+      const { id, ...insertRow } = row; // deixa o Supabase gerar o uuid
+      const { data, error } = await supabase.from('mensagens').insert(insertRow).select().single();
       if(error) throw error;
       return data;
-    } else {
-      const all = localAll(); all.unshift(row); localSave(all);
-      return row;
     }
+    const all = localAll(); all.unshift(row); localSave(all);
+    return row;
   },
   async listApproved(){
     if(LIVE){
@@ -872,8 +746,7 @@ const DB = {
       if(error) throw error;
       return data;
     }
-    return localAll().filter(m => m.status === 'aprovada' && m.publica !== false)
-      .sort((a,b)=> new Date(b.criado_em) - new Date(a.criado_em));
+    return localAll().filter(m => m.status === 'aprovada' && m.publica !== false).sort((a,b)=> new Date(b.criado_em) - new Date(a.criado_em));
   },
   async listAll(){
     if(LIVE){
@@ -884,61 +757,181 @@ const DB = {
     return localAll().sort((a,b)=> new Date(b.criado_em) - new Date(a.criado_em));
   },
   async listForRecipient(nome, turma){
-    const n = (nome||'').trim().toLowerCase();
-    const t = (turma||'').trim().toLowerCase();
+    const n = (nome||'').trim().toLowerCase(), t = (turma||'').trim().toLowerCase();
     if(LIVE){
-      let q = supabase.from('mensagens').select('*').ilike('destinatario_nome', `%${n}%`);
-      const { data, error } = await q.order('criado_em', {ascending:false});
+      const { data, error } = await supabase.from('mensagens').select('*').ilike('destinatario_nome', `%${nome.trim()}%`).order('criado_em', {ascending:false});
       if(error) throw error;
       return data.filter(m => !t || (m.destinatario_turma||'').toLowerCase().includes(t));
     }
-    return localAll().filter(m => (m.destinatario_nome||'').toLowerCase().includes(n) && (!t || (m.destinatario_turma||'').toLowerCase().includes(t)))
-      .sort((a,b)=> new Date(b.criado_em) - new Date(a.criado_em));
+    return localAll().filter(m => (m.destinatario_nome||'').toLowerCase().includes(n) && (!t || (m.destinatario_turma||'').toLowerCase().includes(t))).sort((a,b)=> new Date(b.criado_em) - new Date(a.criado_em));
   },
   async updateStatus(id, status){
-    if(LIVE){
-      const { error } = await supabase.from('mensagens').update({status}).eq('id', id);
-      if(error) throw error;
-    } else {
-      const all = localAll(); const i = all.findIndex(m=>m.id===id);
-      if(i>-1){ all[i].status = status; localSave(all); }
-    }
+    if(LIVE){ const { error } = await supabase.from('mensagens').update({status}).eq('id', id); if(error) throw error; return; }
+    const all = localAll(); const i = all.findIndex(m=>m.id===id); if(i>-1){ all[i].status = status; localSave(all); }
   },
   async remove(id){
-    if(LIVE){
-      const { error } = await supabase.from('mensagens').delete().eq('id', id);
-      if(error) throw error;
-    } else {
-      localSave(localAll().filter(m=>m.id!==id));
-    }
+    if(LIVE){ const { error } = await supabase.from('mensagens').delete().eq('id', id); if(error) throw error; return; }
+    localSave(localAll().filter(m=>m.id!==id));
   },
   async updatePayment(id, pagamento_status, link_pagamento){
-    const patch = { pagamento_status };
-    if(link_pagamento !== undefined) patch.link_pagamento = link_pagamento;
+    const patch = { pagamento_status }; if(link_pagamento !== undefined) patch.link_pagamento = link_pagamento;
+    if(LIVE){ const { error } = await supabase.from('mensagens').update(patch).eq('id', id); if(error) throw error; return; }
+    const all = localAll(); const i = all.findIndex(m=>m.id===id); if(i>-1){ Object.assign(all[i], patch); localSave(all); }
+  },
+  async like(id){
+    if(LIVE){ const { error } = await supabase.rpc('incrementar_curtida', {msg_id: id}); if(error) throw error; return; }
+    const all = localAll(); const i = all.findIndex(m=>m.id===id); if(i>-1){ all[i].curtidas = (all[i].curtidas||0)+1; localSave(all); }
+  },
+  async countFreeToday(){
     if(LIVE){
-      const { error } = await supabase.from('mensagens').update(patch).eq('id', id);
+      const { count, error } = await supabase.from('mensagens').select('*', {count:'exact', head:true}).eq('plano','gratuito').gte('criado_em', todayStartISO());
       if(error) throw error;
-    } else {
-      const all = localAll(); const i = all.findIndex(m=>m.id===id);
-      if(i>-1){ Object.assign(all[i], patch); localSave(all); }
+      return count || 0;
     }
+    return localAll().filter(m => m.plano==='gratuito' && new Date(m.criado_em) >= new Date(todayStartISO())).length;
+  },
+  async countToday(){
+    if(LIVE){
+      const { count, error } = await supabase.from('mensagens').select('*', {count:'exact', head:true}).gte('criado_em', todayStartISO());
+      if(error) throw error;
+      return count || 0;
+    }
+    return localAll().filter(m => new Date(m.criado_em) >= new Date(todayStartISO())).length;
+  },
+  async getSettings(){
+    if(LIVE){
+      const { data, error } = await supabase.from('configuracoes').select('*').eq('id',1).maybeSingle();
+      if(error) throw error;
+      return data ? normalizeSettings(data) : loadDemoSettings();
+    }
+    return loadDemoSettings();
+  },
+  async saveSettings(patch){
+    if(LIVE){
+      const { error } = await supabase.from('configuracoes').update(patch).eq('id',1);
+      if(error) throw error;
+      return;
+    }
+    const cur = loadDemoSettings();
+    localStorage.setItem(LS_DEMO, JSON.stringify(Object.assign(cur, patch)));
+  },
+  async listAdmins(){
+    if(LIVE){
+      const { data, error } = await supabase.from('admins').select('*').order('criado_em', {ascending:true});
+      if(error) throw error;
+      return data;
+    }
+    return [];
   }
 };
 
-/* ===================== UI STATE / HELPERS ===================== */
-window.__DB = DB;
+/* ===================== autenticação ===================== */
+window.doLogin = async function(){
+  const email = document.getElementById('loginEmail').value.trim();
+  const senha = document.getElementById('loginSenha').value;
+  if(!LIVE){
+    const expected = SETTINGS.adminPass || 'escola123';
+    if(senha === expected || email === 'demo' ){ /* fallback simples */ }
+    if((email||senha) && senha === expected){
+      ADMIN_OK = true; enterAdminPanel(); return;
+    }
+    toast('Senha incorreta (modo demonstração)', 'err'); return;
+  }
+  if(!email || !senha){ toast('Preencha e-mail e senha', 'err'); return; }
+  const { data, error } = await supabase.auth.signInWithPassword({ email, password: senha });
+  if(error){ toast('Erro ao entrar: ' + error.message, 'err'); return; }
+  SESSION = data.session; ADMIN_OK = true;
+  toast('Bem-vindo(a)!');
+  enterAdminPanel();
+};
+window.doSignup = async function(){
+  if(!LIVE){ toast('Conecte o Supabase primeiro para criar contas reais.', 'err'); return; }
+  const codigo = document.getElementById('cadConvite').value.trim();
+  const email = document.getElementById('cadEmail').value.trim();
+  const senha = document.getElementById('cadSenha').value;
+  if(!codigo || !email || !senha){ toast('Preencha todos os campos', 'err'); return; }
+  if(senha.length < 6){ toast('A senha precisa ter pelo menos 6 caracteres', 'err'); return; }
+  try{
+    const { data: ok, error: e1 } = await supabase.rpc('verificar_convite', { tentativa: codigo });
+    if(e1) throw e1;
+    if(!ok){ toast('Código de convite inválido', 'err'); return; }
+    const { data, error: e2 } = await supabase.auth.signUp({ email, password: senha });
+    if(e2) throw e2;
+    if(data.session){
+      SESSION = data.session; ADMIN_OK = true;
+      toast('Conta de administrador criada!');
+      enterAdminPanel();
+    } else {
+      toast('Conta criada! Verifique seu e-mail para confirmar o acesso e depois faça login.');
+      document.querySelector('#authTabs button[data-pane="login"]').click();
+    }
+  }catch(e){
+    toast('Erro no cadastro: ' + (e.message||e), 'err');
+  }
+};
+window.doLogout = async function(){
+  if(LIVE && supabase){ await supabase.auth.signOut(); }
+  SESSION = null; ADMIN_OK = false;
+  renderAdminGateState();
+};
+function enterAdminPanel(){
+  renderAdminGateState();
+  renderAdmin();
+}
+function renderAdminGateState(){
+  document.getElementById('adminGate').style.display = ADMIN_OK ? 'none' : 'block';
+  document.getElementById('adminPanel').style.display = ADMIN_OK ? 'block' : 'none';
+  document.getElementById('demoPassHint').style.display = LIVE ? 'none' : 'block';
+  document.getElementById('gateSubtitle').textContent = LIVE
+    ? 'Acesso restrito à equipe responsável pela moderação dos bilhetes — entre com sua conta ou crie uma com o código de convite da escola.'
+    : 'Supabase não conectado ainda: use a senha de demonstração para explorar o painel.';
+  document.getElementById('adminWhoami').textContent = SESSION ? ('Conectado como ' + SESSION.user.email) : 'Modo demonstração';
+}
+document.querySelectorAll('#authTabs button').forEach(b=>{
+  b.addEventListener('click', ()=>{
+    document.querySelectorAll('#authTabs button').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.authpane').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    document.getElementById('pane-'+b.dataset.pane).classList.add('active');
+  });
+});
 
+/* ===================== realtime ===================== */
+function subscribeRealtime(){
+  if(!LIVE) return;
+  supabase.channel('config-live').on('postgres_changes', {event:'UPDATE', schema:'public', table:'configuracoes'}, payload=>{
+    SETTINGS = normalizeSettings(payload.new);
+    applySharedSettingsToUI();
+    refreshFreebieState();
+  }).subscribe();
+
+  supabase.channel('mensagens-live').on('postgres_changes', {event:'INSERT', schema:'public', table:'mensagens'}, payload=>{
+    document.getElementById('mailboxCount').textContent = (Number(document.getElementById('mailboxCount').textContent)||0)+1;
+    if(ADMIN_OK && document.getElementById('view-admin').classList.contains('active')){
+      toast('📨 Novo bilhete recebido!', 'info');
+      renderAdmin();
+    }
+  }).subscribe();
+
+  const presenceChannel = supabase.channel('mural-presence', { config: { presence: { key: Math.random().toString(36).slice(2) } } });
+  presenceChannel.on('presence', {event:'sync'}, ()=>{
+    const state = presenceChannel.presenceState();
+    document.getElementById('presenceCount').textContent = Object.keys(state).length || 1;
+  }).subscribe(async (status)=>{
+    if(status === 'SUBSCRIBED'){ await presenceChannel.track({ online_at: new Date().toISOString() }); }
+  });
+}
+
+/* ===================== helpers de UI ===================== */
 function toast(msg, type='ok'){
   const el = document.createElement('div');
   el.className = 'toast ' + type;
-  el.innerHTML = (type==='ok' ? '✓ ' : '⚠ ') + msg;
+  el.innerHTML = (type==='ok' ? '✓ ' : type==='err' ? '⚠ ' : '✦ ') + msg;
   document.getElementById('toasts').appendChild(el);
-  setTimeout(()=>{ el.style.opacity='0'; el.style.transform='translateY(-8px)'; el.style.transition='all .35s'; setTimeout(()=>el.remove(), 350); }, 3200);
+  setTimeout(()=>{ el.style.opacity='0'; el.style.transform='translateY(-8px)'; el.style.transition='all .35s'; setTimeout(()=>el.remove(), 350); }, 3400);
 }
-
-function getIdentity(){
-  try{ return JSON.parse(localStorage.getItem(LS_ID)) || null; }catch(e){ return null; }
-}
+function escapeHTML(s){ const d=document.createElement('div'); d.textContent = s||''; return d.innerHTML; }
+function getIdentity(){ try{ return JSON.parse(localStorage.getItem(LS_ID)) || null; }catch(e){ return null; } }
 function refreshIdentityPill(){
   const id = getIdentity();
   document.getElementById('identityLabel').textContent = id ? `${id.nome}${id.turma? ' · '+id.turma:''}` : 'Definir nome';
@@ -963,7 +956,7 @@ window.saveIdentity = function(){
   toast('Identidade salva neste navegador');
 };
 
-/* ===================== NAV ===================== */
+/* ===================== nav ===================== */
 window.go = function(view){
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   document.getElementById('view-'+view).classList.add('active');
@@ -971,86 +964,140 @@ window.go = function(view){
   window.scrollTo({top:0, behavior:'smooth'});
   if(view==='mural') renderMural();
   if(view==='caixa') loadInbox();
-  if(view==='admin' && adminAuthed) renderAdmin();
+  if(view==='enviar') refreshFreebieState();
+  if(view==='admin'){ renderAdminGateState(); if(ADMIN_OK) renderAdmin(); }
 };
 document.querySelectorAll('nav.tabs button').forEach(b=> b.addEventListener('click', ()=> go(b.dataset.view)));
 
-/* ===================== HERO PARALLAX ===================== */
+/* ===================== parallax + partículas + sparkles ===================== */
 const stage = document.getElementById('heroStage');
 let lastSparkle = 0;
 const sparkleColors = ['#E8C468','#FF6B9D','#7FE8C9','#B79CF2'];
 function spawnSparkle(x,y){
-  const s = document.createElement('div');
-  const size = 4 + Math.random()*4;
-  s.className = 'sparkle';
-  s.style.left = x+'px'; s.style.top = y+'px';
-  s.style.width = s.style.height = size+'px';
+  const s = document.createElement('div'); const size = 4 + Math.random()*4;
+  s.className = 'sparkle'; s.style.left = x+'px'; s.style.top = y+'px'; s.style.width = s.style.height = size+'px';
   s.style.background = sparkleColors[Math.floor(Math.random()*sparkleColors.length)];
   s.style.boxShadow = `0 0 8px 1px ${s.style.background}`;
-  document.body.appendChild(s);
-  setTimeout(()=> s.remove(), 820);
+  document.body.appendChild(s); setTimeout(()=> s.remove(), 820);
 }
 document.querySelector('.scene').addEventListener('mousemove', (e)=>{
   const r = e.currentTarget.getBoundingClientRect();
-  const rx = ((e.clientY - r.top)/r.height - .5) * -14;
-  const ry = ((e.clientX - r.left)/r.width - .5) * 18;
+  const rx = ((e.clientY - r.top)/r.height - .5) * -14, ry = ((e.clientX - r.left)/r.width - .5) * 18;
   stage.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
-  const now = Date.now();
-  if(now - lastSparkle > 55){ lastSparkle = now; spawnSparkle(e.clientX, e.clientY); }
+  const now = Date.now(); if(now - lastSparkle > 55){ lastSparkle = now; spawnSparkle(e.clientX, e.clientY); }
 });
 document.querySelector('.scene').addEventListener('mouseleave', ()=>{ stage.style.transform = ''; });
-
-/* ===================== AMBIENT PARTICLES ===================== */
 (function ambient(){
-  const wrap = document.getElementById('ambient');
-  const colors = ['#E8C468','#FF6B9D','#7FE8C9','#B79CF2'];
+  const wrap = document.getElementById('ambient'); const colors = ['#E8C468','#FF6B9D','#7FE8C9','#B79CF2'];
   for(let i=0;i<26;i++){
-    const m = document.createElement('div');
-    const size = 3 + Math.random()*5;
-    m.className='mote';
-    m.style.width = m.style.height = size+'px';
-    m.style.left = Math.random()*100+'%';
-    m.style.background = colors[i%colors.length];
-    m.style.animationDuration = (14+Math.random()*18)+'s';
-    m.style.animationDelay = (-Math.random()*20)+'s';
+    const m = document.createElement('div'); const size = 3 + Math.random()*5;
+    m.className='mote'; m.style.width = m.style.height = size+'px'; m.style.left = Math.random()*100+'%';
+    m.style.background = colors[i%colors.length]; m.style.animationDuration = (14+Math.random()*18)+'s'; m.style.animationDelay = (-Math.random()*20)+'s';
     wrap.appendChild(m);
   }
 })();
 
-/* ===================== CONFETTI ===================== */
+/* ===================== confetti + som + envelope voador ===================== */
 function confettiBurst(){
-  const canvas = document.getElementById('confetti');
-  const dpr = window.devicePixelRatio||1;
-  canvas.width = innerWidth*dpr; canvas.height = innerHeight*dpr;
-  canvas.style.width='100%'; canvas.style.height='100%';
+  const canvas = document.getElementById('confetti'); const dpr = window.devicePixelRatio||1;
+  canvas.width = innerWidth*dpr; canvas.height = innerHeight*dpr; canvas.style.width='100%'; canvas.style.height='100%';
   const ctx = canvas.getContext('2d'); ctx.scale(dpr,dpr);
   const colors = ['#E8C468','#FF6B9D','#7FE8C9','#B79CF2','#F6F2FF'];
-  const pieces = Array.from({length:120}, ()=>({
-    x: innerWidth/2 + (Math.random()-.5)*120,
-    y: innerHeight*0.35,
-    vx:(Math.random()-.5)*10,
-    vy:-Math.random()*9-4,
-    rot:Math.random()*360, vr:(Math.random()-.5)*14,
-    size: 5+Math.random()*6, color: colors[Math.floor(Math.random()*colors.length)],
-    life: 0
-  }));
+  const pieces = Array.from({length:120}, ()=>({ x: innerWidth/2 + (Math.random()-.5)*120, y: innerHeight*0.35, vx:(Math.random()-.5)*10, vy:-Math.random()*9-4, rot:Math.random()*360, vr:(Math.random()-.5)*14, size: 5+Math.random()*6, color: colors[Math.floor(Math.random()*colors.length)], life: 0 }));
   let frame=0;
   function step(){
-    frame++;
-    ctx.clearRect(0,0,innerWidth,innerHeight);
-    let alive=false;
+    frame++; ctx.clearRect(0,0,innerWidth,innerHeight); let alive=false;
     pieces.forEach(p=>{
       p.vy += .28; p.x += p.vx; p.y += p.vy; p.rot += p.vr; p.life++;
       if(p.y < innerHeight+30) alive = true;
-      ctx.save();
-      ctx.translate(p.x,p.y); ctx.rotate(p.rot*Math.PI/180);
+      ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot*Math.PI/180);
       ctx.fillStyle = p.color; ctx.globalAlpha = Math.max(0, 1 - p.life/90);
-      ctx.fillRect(-p.size/2,-p.size/2,p.size,p.size*.6);
-      ctx.restore();
+      ctx.fillRect(-p.size/2,-p.size/2,p.size,p.size*.6); ctx.restore();
     });
     if(alive && frame<140) requestAnimationFrame(step); else ctx.clearRect(0,0,innerWidth,innerHeight);
   }
   step();
+}
+let audioCtx;
+function playTone(freq, dur, type='sine', vol=.14, delay=0){
+  try{
+    audioCtx = audioCtx || new (window.AudioContext||window.webkitAudioContext)();
+    const t0 = audioCtx.currentTime + delay;
+    const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain();
+    osc.type = type; osc.frequency.setValueAtTime(freq, t0);
+    gain.gain.setValueAtTime(vol, t0); gain.gain.exponentialRampToValueAtTime(.001, t0+dur);
+    osc.connect(gain); gain.connect(audioCtx.destination); osc.start(t0); osc.stop(t0+dur);
+  }catch(e){}
+}
+function playSealSound(){ playTone(180,.16,'triangle',.16); playTone(90,.22,'sine',.12,.05); }
+function flyEnvelopeToMailbox(fromRect){
+  const target = document.getElementById('mailboxBadge').getBoundingClientRect();
+  const el = document.createElement('div'); el.className = 'flyenv';
+  el.style.left = fromRect.left + fromRect.width/2 - 23 + 'px'; el.style.top = fromRect.top + 'px';
+  el.style.transform = 'rotate(0deg) scale(1)'; document.body.appendChild(el);
+  requestAnimationFrame(()=>{
+    el.style.left = target.left + target.width/2 - 23 + 'px'; el.style.top = target.top + target.height/2 - 16 + 'px';
+    el.style.transform = 'rotate(340deg) scale(.25)'; el.style.opacity = '.2';
+  });
+  setTimeout(()=>{
+    el.remove(); const mb = document.getElementById('mailboxBadge');
+    mb.classList.add('bump'); setTimeout(()=>mb.classList.remove('bump'), 500);
+  }, 920);
+}
+async function refreshMailboxCount(){
+  try{ document.getElementById('mailboxCount').textContent = await DB.countToday(); }catch(e){}
+}
+
+/* ===================== configurações compartilhadas (Supabase) ===================== */
+function applySharedSettingsToUI(){
+  document.getElementById('schoolNameTag').textContent = SETTINGS.nome_escola || 'Nossa Escola';
+  document.getElementById('premiumPriceTag').textContent = 'R$ ' + Number(SETTINGS.stripe_price||5).toLocaleString('pt-BR',{minimumFractionDigits:2});
+  const tag = document.getElementById('stripeTag'), txt = document.getElementById('stripeTagText');
+  if(tag){ if(SETTINGS.stripe_link){ tag.classList.add('live'); txt.textContent = 'Stripe configurado'; } else { tag.classList.remove('live'); txt.textContent = 'Stripe não configurado (modo demo)'; } }
+  const ft = document.getElementById('freeToggle'); if(ft) ft.classList.toggle('on', !!SETTINGS.bilhetes_gratis_ativos);
+  const fl = document.getElementById('freeLimit'); if(fl) fl.value = SETTINGS.limite_gratis_diario || 0;
+  const cfgSchool = document.getElementById('cfgSchoolName'); if(cfgSchool) cfgSchool.value = SETTINGS.nome_escola || '';
+  const cfgLink = document.getElementById('cfgStripeLink'); if(cfgLink) cfgLink.value = SETTINGS.stripe_link || '';
+  const cfgPrice = document.getElementById('cfgStripePrice'); if(cfgPrice) cfgPrice.value = SETTINGS.stripe_price || '';
+}
+window.saveSharedSettings = async function(){
+  const patch = {
+    nome_escola: document.getElementById('cfgSchoolName').value.trim() || 'Nossa Escola',
+    stripe_link: document.getElementById('cfgStripeLink').value.trim(),
+    stripe_price: Number(document.getElementById('cfgStripePrice').value) || 5
+  };
+  try{ await DB.saveSettings(patch); SETTINGS = Object.assign(SETTINGS, patch); applySharedSettingsToUI(); toast('Configurações salvas para todo o site.'); }
+  catch(e){ toast('Erro ao salvar: ' + e.message, 'err'); }
+};
+window.saveFreeSettings = async function(){
+  const patch = { bilhetes_gratis_ativos: document.getElementById('freeToggle').classList.contains('on'), limite_gratis_diario: Number(document.getElementById('freeLimit').value)||0 };
+  try{ await DB.saveSettings(patch); SETTINGS = Object.assign(SETTINGS, patch); toast('Disponibilidade de bilhetes grátis atualizada para todo mundo.'); refreshFreebieState(); }
+  catch(e){ toast('Erro ao salvar: ' + e.message, 'err'); }
+};
+document.getElementById('freeToggle').addEventListener('click', function(){ this.classList.toggle('on'); });
+
+async function refreshFreebieState(){
+  const plan = document.querySelector('#plansRow .plan[data-plan="gratuito"]');
+  const banner = document.getElementById('quotaBanner');
+  let usedToday = 0;
+  try{ usedToday = await DB.countFreeToday(); }catch(e){}
+  const limite = SETTINGS.limite_gratis_diario || 0;
+  const esgotadoLimite = limite > 0 && usedToday >= limite;
+  const desativado = !SETTINGS.bilhetes_gratis_ativos;
+  if(desativado || esgotadoLimite){
+    plan.classList.add('disabled');
+    plan.querySelector('.badge-esgotado, .badge-pop')?.remove();
+    const ribbon = document.createElement('div'); ribbon.className='badge-esgotado'; ribbon.textContent='Esgotado'; plan.appendChild(ribbon);
+    selectedPlan = 'premium';
+    document.querySelectorAll('#plansRow .plan').forEach(x=>x.classList.remove('sel'));
+    document.querySelector('#plansRow .plan[data-plan="premium"]').classList.add('sel');
+    document.getElementById('submitBtn').innerHTML = '💎 Selar bilhete premium →';
+    banner.innerHTML = `<div class="banner warn">✉️ As cartas grátis ${desativado ? 'foram desativadas pela administração' : 'de hoje acabaram'}. Envie um Selo Premium para continuar mandando bilhetes hoje!</div>`;
+  } else {
+    plan.classList.remove('disabled');
+    const ribbon = plan.querySelector('.badge-esgotado'); if(ribbon) ribbon.remove();
+    banner.innerHTML = limite > 0 ? `<div class="banner info">🕊️ Restam <strong>${Math.max(0, limite-usedToday)}</strong> bilhetes grátis hoje.</div>` : '';
+  }
 }
 
 /* ===================== MURAL ===================== */
@@ -1062,15 +1109,11 @@ document.querySelectorAll('#view-mural .chip').forEach(c=>{
     c.classList.add('active'); muralFilter = c.dataset.filter; paintMural();
   });
 });
-
 async function renderMural(){
   const grid = document.getElementById('muralGrid');
   grid.innerHTML = '<div class="empty"><div class="glyph">⏳</div>Carregando bilhetes…</div>';
-  try{
-    muralData = await DB.listApproved();
-  }catch(e){ toast('Erro ao carregar o mural', 'err'); muralData = []; }
-  paintDestaque();
-  paintMural();
+  try{ muralData = await DB.listApproved(); }catch(e){ toast('Erro ao carregar o mural: ' + e.message, 'err'); muralData = []; }
+  paintDestaque(); paintMural(); refreshMailboxCount();
 }
 function paintDestaque(){
   const box = document.getElementById('destaqueBox');
@@ -1084,17 +1127,18 @@ function paintDestaque(){
 }
 function initials(name){ return (name||'?').trim().split(/\s+/).slice(0,2).map(w=>w[0]).join('').toUpperCase(); }
 const colorMap = {dourado:'#e8c468', rosa:'#ff6b9d', menta:'#7fe8c9', lilas:'#b79cf2'};
+function likedIds(){ try{ return JSON.parse(localStorage.getItem(LS_LIKES)) || []; }catch(e){ return []; } }
+function markLiked(id){ const l = likedIds(); l.push(id); localStorage.setItem(LS_LIKES, JSON.stringify(l)); }
 
 function paintMural(){
   const grid = document.getElementById('muralGrid');
   const data = muralFilter==='todos' ? muralData : muralData.filter(m=>m.envelope_estilo===muralFilter);
-  if(!data.length){
-    grid.innerHTML = '<div class="empty"><div class="glyph">🪶</div>Nenhum bilhete por aqui ainda.<br>Seja o primeiro a escrever um!</div>';
-    return;
-  }
+  if(!data.length){ grid.innerHTML = '<div class="empty"><div class="glyph">🪶</div>Nenhum bilhete por aqui ainda.<br>Seja o primeiro a escrever um!</div>'; return; }
+  const liked = likedIds();
   grid.innerHTML = '';
   data.forEach((m,idx)=>{
     const c = colorMap[m.envelope_estilo] || colorMap.dourado;
+    const alreadyLiked = liked.includes(m.id);
     const card = document.createElement('div');
     card.className = 'card3d';
     card.style.animation = `viewIn .5s var(--ease) ${idx*.04}s both`;
@@ -1107,105 +1151,56 @@ function paintMural(){
         </div>
         <div class="card-face card-back">
           <p>${escapeHTML(m.mensagem)}</p>
-          <div class="from">— ${m.anonimo ? 'Anônimo' : escapeHTML(m.remetente_nome)}</div>
+          <div class="from">
+            <span>— ${m.anonimo ? 'Anônimo' : escapeHTML(m.remetente_nome)}</span>
+            <button class="likebtn ${alreadyLiked?'liked':''}" data-id="${m.id}" ${alreadyLiked?'disabled':''}>♥ <span>${m.curtidas||0}</span></button>
+          </div>
         </div>
       </div>`;
-    card.addEventListener('click', ()=> card.classList.toggle('flipped'));
+    card.querySelector('.card3d-inner').addEventListener('click', (e)=>{
+      if(e.target.closest('.likebtn')) return;
+      card.classList.toggle('flipped');
+    });
+    const likeBtn = card.querySelector('.likebtn');
+    likeBtn.addEventListener('click', async (e)=>{
+      e.stopPropagation();
+      if(likeBtn.disabled) return;
+      likeBtn.disabled = true; likeBtn.classList.add('liked');
+      const span = likeBtn.querySelector('span'); span.textContent = (Number(span.textContent)||0)+1;
+      markLiked(m.id);
+      try{ await DB.like(m.id); }catch(err){ /* mantém otimista mesmo se falhar silenciosamente */ }
+    });
     grid.appendChild(card);
   });
 }
-function escapeHTML(s){ const d=document.createElement('div'); d.textContent = s||''; return d.innerHTML; }
 
 /* ===================== ENVIAR ===================== */
 const composeForm = document.getElementById('composeForm');
 const mensagemEl = document.getElementById('fMensagem');
 mensagemEl.addEventListener('input', ()=> document.getElementById('charCount').textContent = mensagemEl.value.length);
-
 let selectedColor = 'dourado';
 document.querySelectorAll('#swatches .swatch').forEach(s=>{
   s.addEventListener('click', ()=>{
     document.querySelectorAll('#swatches .swatch').forEach(x=>x.classList.remove('sel'));
     s.classList.add('sel'); selectedColor = s.dataset.c;
-    const hex = colorMap[selectedColor];
-    document.getElementById('previewEnv').style.setProperty('--c', hex);
+    document.getElementById('previewEnv').style.setProperty('--c', colorMap[selectedColor]);
   });
 });
-
 let anonOn = false, pubOn = true;
 document.getElementById('anonSwitch').addEventListener('click', function(){ anonOn=!anonOn; this.classList.toggle('on', anonOn); });
 document.getElementById('publicSwitch').addEventListener('click', function(){ pubOn=!pubOn; this.classList.toggle('on', pubOn); });
-
 document.getElementById('previewEnv').addEventListener('click', function(){ this.classList.toggle('open'); });
 
-/* --- plano gratuito / premium --- */
 let selectedPlan = 'gratuito';
 document.querySelectorAll('#plansRow .plan').forEach(p=>{
   p.addEventListener('click', ()=>{
+    if(p.classList.contains('disabled')) return;
     document.querySelectorAll('#plansRow .plan').forEach(x=>x.classList.remove('sel'));
     p.classList.add('sel'); selectedPlan = p.dataset.plan;
-    document.getElementById('submitBtn').innerHTML = selectedPlan==='premium'
-      ? '💎 Selar bilhete premium →'
-      : '🖋️ Selar e enviar';
+    document.getElementById('submitBtn').innerHTML = selectedPlan==='premium' ? '💎 Selar bilhete premium →' : '🖋️ Selar e enviar';
   });
 });
-function refreshPremiumPriceTag(){
-  const price = Number(CFG.stripePrice || 5);
-  document.getElementById('premiumPriceTag').textContent = 'R$ ' + price.toLocaleString('pt-BR',{minimumFractionDigits:2});
-}
 
-/* --- som sintetizado (nenhum arquivo de áudio necessário) --- */
-let audioCtx;
-function playTone(freq, dur, type='sine', vol=.14, delay=0){
-  try{
-    audioCtx = audioCtx || new (window.AudioContext||window.webkitAudioContext)();
-    const t0 = audioCtx.currentTime + delay;
-    const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain();
-    osc.type = type; osc.frequency.setValueAtTime(freq, t0);
-    gain.gain.setValueAtTime(vol, t0); gain.gain.exponentialRampToValueAtTime(.001, t0+dur);
-    osc.connect(gain); gain.connect(audioCtx.destination);
-    osc.start(t0); osc.stop(t0+dur);
-  }catch(e){}
-}
-function playSealSound(){ playTone(180,.16,'triangle',.16); playTone(90,.22,'sine',.12,.05); }
-
-/* --- envelope voando até a caixa de correio no header --- */
-function flyEnvelopeToMailbox(fromRect){
-  const target = document.getElementById('mailboxBadge').getBoundingClientRect();
-  const el = document.createElement('div');
-  el.className = 'flyenv';
-  el.style.left = fromRect.left + fromRect.width/2 - 23 + 'px';
-  el.style.top = fromRect.top + 'px';
-  el.style.transform = 'rotate(0deg) scale(1)';
-  document.body.appendChild(el);
-  requestAnimationFrame(()=>{
-    el.style.left = target.left + target.width/2 - 23 + 'px';
-    el.style.top = target.top + target.height/2 - 16 + 'px';
-    el.style.transform = 'rotate(340deg) scale(.25)';
-    el.style.opacity = '.2';
-  });
-  setTimeout(()=>{
-    el.remove();
-    const mb = document.getElementById('mailboxBadge');
-    mb.classList.add('bump'); setTimeout(()=>mb.classList.remove('bump'), 500);
-    bumpMailboxCount();
-  }, 920);
-}
-const LS_COUNT = 'ce_contagem_diaria';
-function bumpMailboxCount(){
-  const today = new Date().toISOString().slice(0,10);
-  let rec; try{ rec = JSON.parse(localStorage.getItem(LS_COUNT)) || {}; }catch(e){ rec = {}; }
-  if(rec.date !== today) rec = { date: today, n: 0 };
-  rec.n = (rec.n||0) + 1;
-  localStorage.setItem(LS_COUNT, JSON.stringify(rec));
-  document.getElementById('mailboxCount').textContent = rec.n;
-}
-function initMailboxCount(){
-  const today = new Date().toISOString().slice(0,10);
-  let rec; try{ rec = JSON.parse(localStorage.getItem(LS_COUNT)) || {}; }catch(e){ rec = {}; }
-  document.getElementById('mailboxCount').textContent = (rec.date===today) ? (rec.n||0) : 0;
-}
-
-/* --- modal de pagamento --- */
 window.closePaymentModal = function(){ document.getElementById('paymentOverlay').classList.remove('show'); };
 function openPaymentModal({link, simulated, messageId}){
   document.getElementById('paylinkBox').textContent = link || 'Nenhum link configurado ainda.';
@@ -1213,13 +1208,9 @@ function openPaymentModal({link, simulated, messageId}){
   if(simulated){
     document.getElementById('paymentDesc').textContent = 'Modo demonstração: nenhum link do Stripe foi configurado pela administração ainda. Você pode simular um pagamento aprovado abaixo.';
     goBtn.textContent = '✓ Simular pagamento aprovado';
-    goBtn.onclick = async ()=>{
-      await DB.updatePayment(messageId, 'pago');
-      toast('Pagamento simulado como aprovado 💎');
-      closePaymentModal();
-    };
+    goBtn.onclick = async ()=>{ await DB.updatePayment(messageId, 'pago'); toast('Pagamento simulado como aprovado 💎'); closePaymentModal(); };
   } else {
-    document.getElementById('paymentDesc').textContent = 'Seu bilhete foi salvo e ficará com o selo pendente até o pagamento ser confirmado.';
+    document.getElementById('paymentDesc').textContent = 'Seu bilhete foi salvo e ficará com o selo pendente até o pagamento ser confirmado pela administração.';
     goBtn.textContent = 'Ir para pagamento →';
     goBtn.onclick = ()=>{ window.open(link, '_blank'); };
   }
@@ -1229,32 +1220,25 @@ function openPaymentModal({link, simulated, messageId}){
 composeForm.addEventListener('submit', async (e)=>{
   e.preventDefault();
   const btn = document.getElementById('submitBtn');
-  const price = Number(CFG.stripePrice || 5);
+  const price = Number(SETTINGS.stripe_price || 5);
   const payload = {
     remetente_nome: document.getElementById('fRemetenteNome').value.trim(),
     remetente_turma: document.getElementById('fRemetenteTurma').value.trim(),
     destinatario_nome: document.getElementById('fDestNome').value.trim(),
     destinatario_turma: document.getElementById('fDestTurma').value.trim(),
-    mensagem: mensagemEl.value.trim(),
-    anonimo: anonOn,
-    envelope_estilo: selectedColor,
-    publica: pubOn,
-    plano: selectedPlan,
-    valor: selectedPlan==='premium' ? price : 0
+    mensagem: mensagemEl.value.trim(), anonimo: anonOn, envelope_estilo: selectedColor, publica: pubOn,
+    plano: selectedPlan, valor: selectedPlan==='premium' ? price : 0
   };
-  if(!payload.remetente_nome || !payload.destinatario_nome || !payload.mensagem){
-    toast('Preencha nome, destinatário e mensagem', 'err'); return;
-  }
+  if(!payload.remetente_nome || !payload.destinatario_nome || !payload.mensagem){ toast('Preencha nome, destinatário e mensagem', 'err'); return; }
+  if(payload.plano === 'gratuito' && !SETTINGS.bilhetes_gratis_ativos){ toast('Os bilhetes grátis estão desativados agora — escolha o Selo Premium.', 'err'); return; }
   const fromRect = btn.getBoundingClientRect();
   btn.classList.add('sending'); btn.textContent = 'Selando…';
   try{
     const row = await DB.add(payload);
-    playSealSound();
-    confettiBurst();
-    flyEnvelopeToMailbox(fromRect);
+    playSealSound(); confettiBurst(); flyEnvelopeToMailbox(fromRect);
     if(payload.plano === 'premium'){
-      if(CFG.stripeLink){
-        const link = CFG.stripeLink + (CFG.stripeLink.includes('?')?'&':'?') + 'client_reference_id=' + encodeURIComponent(row.id);
+      if(SETTINGS.stripe_link){
+        const link = SETTINGS.stripe_link + (SETTINGS.stripe_link.includes('?')?'&':'?') + 'client_reference_id=' + encodeURIComponent(row.id);
         try{ await DB.updatePayment(row.id, 'pendente_pg', link); }catch(e){}
         toast('Bilhete premium salvo! Complete o pagamento para confirmar o selo.');
         openPaymentModal({link, simulated:false, messageId: row.id});
@@ -1265,21 +1249,18 @@ composeForm.addEventListener('submit', async (e)=>{
     } else {
       toast('Bilhete enviado! Ele passará por moderação antes de aparecer no mural.');
     }
-    composeForm.reset();
-    document.getElementById('charCount').textContent = '0';
+    composeForm.reset(); document.getElementById('charCount').textContent = '0';
     anonOn=false; pubOn=true;
-    document.getElementById('anonSwitch').classList.remove('on');
-    document.getElementById('publicSwitch').classList.add('on');
-    document.querySelectorAll('#plansRow .plan').forEach(x=>x.classList.remove('sel'));
-    document.querySelector('#plansRow .plan[data-plan="gratuito"]').classList.add('sel');
-    selectedPlan = 'gratuito';
+    document.getElementById('anonSwitch').classList.remove('on'); document.getElementById('publicSwitch').classList.add('on');
     const id = getIdentity();
     if(id){ document.getElementById('fRemetenteNome').value = id.nome; document.getElementById('fRemetenteTurma').value = id.turma||''; }
+    refreshFreebieState();
   }catch(err){
     console.error(err);
-    toast('Não foi possível enviar. Tente novamente.', 'err');
+    toast('Não foi possível enviar: ' + (err.message||err), 'err');
   }
-  btn.classList.remove('sending'); btn.innerHTML = '🖋️ Selar e enviar';
+  btn.classList.remove('sending');
+  if(!btn.innerHTML.includes('💎')) btn.innerHTML = '🖋️ Selar e enviar';
 });
 
 /* ===================== MINHA CAIXA ===================== */
@@ -1295,44 +1276,17 @@ window.loadInbox = async function(){
     list.innerHTML = '';
     data.forEach(m=>{
       const c = colorMap[m.envelope_estilo] || colorMap.dourado;
-      const item = document.createElement('div');
-      item.className = 'glass letter-item';
-      item.innerHTML = `
-        <div class="dot" style="background:${c}"></div>
-        <div class="body">
-          <div class="top"><span>De ${m.anonimo ? 'Anônimo' : escapeHTML(m.remetente_nome)}</span><span>${new Date(m.criado_em).toLocaleDateString('pt-BR')}</span></div>
-          <p>${escapeHTML(m.mensagem)}</p>
-        </div>`;
+      const item = document.createElement('div'); item.className = 'glass letter-item';
+      item.innerHTML = `<div class="dot" style="background:${c}"></div><div class="body"><div class="top"><span>De ${m.anonimo ? 'Anônimo' : escapeHTML(m.remetente_nome)}</span><span>${new Date(m.criado_em).toLocaleDateString('pt-BR')}</span></div><p>${escapeHTML(m.mensagem)}</p></div>`;
       item.addEventListener('click', ()=> item.classList.toggle('open'));
       list.appendChild(item);
     });
-  }catch(e){ list.innerHTML = '<div class="empty" style="padding:30px;">⚠ Erro ao buscar recados.</div>'; }
+  }catch(e){ list.innerHTML = '<div class="empty" style="padding:30px;">⚠ Erro ao buscar recados: ' + escapeHTML(e.message||'') + '</div>'; }
 };
 
 /* ===================== ADMIN ===================== */
-let adminAuthed = false;
 let adminData = [];
 let adminStatusFilter = 'todos';
-
-window.tryAdminLogin = function(){
-  const pass = document.getElementById('adminPass').value;
-  const expected = CFG.adminPass || 'escola123';
-  if(pass === expected){
-    adminAuthed = true;
-    document.getElementById('adminGate').style.display='none';
-    document.getElementById('adminPanel').style.display='block';
-    renderAdmin();
-  } else {
-    toast('Senha incorreta', 'err');
-  }
-};
-window.adminLogout = function(){
-  adminAuthed = false;
-  document.getElementById('adminGate').style.display='block';
-  document.getElementById('adminPanel').style.display='none';
-  document.getElementById('adminPass').value='';
-};
-
 document.querySelectorAll('#adminFilterChips .chip').forEach(c=>{
   c.addEventListener('click', ()=>{
     document.querySelectorAll('#adminFilterChips .chip').forEach(x=>x.classList.remove('active'));
@@ -1343,20 +1297,25 @@ document.getElementById('adminSearch').addEventListener('input', paintAdmin);
 
 async function renderAdmin(){
   document.getElementById('adminTbody').innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--ink-faint);padding:26px;">Carregando…</td></tr>';
-  try{ adminData = await DB.listAll(); }catch(e){ adminData = []; toast('Erro ao carregar mensagens', 'err'); }
-  paintStats();
-  paintAdmin();
-  prefillConfigForm();
+  try{ adminData = await DB.listAll(); }catch(e){ adminData = []; toast('Erro ao carregar mensagens: ' + e.message, 'err'); }
+  paintStats(); paintAdmin();
+  applySharedSettingsToUI();
+  document.getElementById('cfgUrl').value = connUrl(); document.getElementById('cfgKey').value = connKey();
+  document.getElementById('cfgPass').value = SETTINGS.adminPass || '';
+  renderConnError();
+  try{
+    const admins = await DB.listAdmins();
+    document.getElementById('adminsList').innerHTML = admins.length ? admins.map(a=>`<div class="row"><span>${escapeHTML(a.email)}</span><span>${new Date(a.criado_em).toLocaleDateString('pt-BR')}</span></div>`).join('') : '<div class="row"><span>Nenhum registro (modo demo ou primeira conta ainda não criada)</span></div>';
+  }catch(e){ document.getElementById('adminsList').innerHTML = '<div class="row"><span>Não disponível.</span></div>'; }
 }
 function paintStats(){
-  const total = adminData.length;
-  const pend = adminData.filter(m=>m.status==='pendente').length;
-  const apr = adminData.filter(m=>m.status==='aprovada').length;
-  const rej = adminData.filter(m=>m.status==='rejeitada').length;
+  const total = adminData.length, pend = adminData.filter(m=>m.status==='pendente').length;
+  const apr = adminData.filter(m=>m.status==='aprovada').length, rej = adminData.filter(m=>m.status==='rejeitada').length;
   const receita = adminData.filter(m=>m.pagamento_status==='pago').reduce((s,m)=> s + Number(m.valor||0), 0);
+  const curtidasTotal = adminData.reduce((s,m)=> s + Number(m.curtidas||0), 0);
   document.getElementById('statRow').innerHTML = [
     ['Total', total], ['Pendentes', pend], ['Aprovadas', apr], ['Rejeitadas', rej],
-    ['Receita premium', 'R$ ' + receita.toLocaleString('pt-BR',{minimumFractionDigits:2})]
+    ['Receita premium', 'R$ ' + receita.toLocaleString('pt-BR',{minimumFractionDigits:2})], ['Curtidas', curtidasTotal]
   ].map(([l,n])=>`<div class="glass stat"><div class="n">${n}</div><div class="l">${l}</div></div>`).join('');
 }
 function paintAdmin(){
@@ -1370,102 +1329,65 @@ function paintAdmin(){
     const pgStatus = m.pagamento_status || (m.plano==='premium' ? 'pendente_pg' : 'gratuito');
     const pgLabel = pgStatus==='pago' ? 'pago' : pgStatus==='pendente_pg' ? 'pendente' : 'grátis';
     const paySection = m.plano==='premium'
-      ? `<span class="badge ${pgStatus}">💎 ${pgLabel}</span><br>
-         <div class="rowbtns" style="margin-top:6px;">
-           ${m.link_pagamento ? `<button class="iconbtn" title="Copiar link de pagamento" onclick="adminCopyLink('${m.id}')">🔗</button>` : ''}
-           ${pgStatus!=='pago' ? `<button class="iconbtn" title="Marcar como pago" onclick="adminMarkPaid('${m.id}')">💳</button>` : ''}
-         </div>`
+      ? `<span class="badge ${pgStatus}">💎 ${pgLabel}</span><div class="rowbtns" style="margin-top:6px;">${m.link_pagamento ? `<button class="iconbtn" title="Copiar link de pagamento" onclick="adminCopyLink('${m.id}')">🔗</button>` : ''}${pgStatus!=='pago' ? `<button class="iconbtn" title="Marcar como pago" onclick="adminMarkPaid('${m.id}')">💳</button>` : ''}</div>`
       : `<span class="badge gratuito">grátis</span>`;
-    return `
-    <tr>
+    return `<tr>
       <td>${new Date(m.criado_em).toLocaleDateString('pt-BR')}<br><span style="color:var(--ink-faint);font-size:.72rem;">${new Date(m.criado_em).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})}</span></td>
       <td>${m.anonimo? '<em>Anônimo</em>' : escapeHTML(m.remetente_nome)}${m.remetente_turma? '<br><span style="color:var(--ink-faint);font-size:.72rem;">'+escapeHTML(m.remetente_turma)+'</span>':''}</td>
       <td>${escapeHTML(m.destinatario_nome)}${m.destinatario_turma? '<br><span style="color:var(--ink-faint);font-size:.72rem;">'+escapeHTML(m.destinatario_turma)+'</span>':''}</td>
       <td class="msgpeek">${escapeHTML((m.mensagem||'').slice(0,90))}${(m.mensagem||'').length>90?'…':''}</td>
       <td><span class="badge ${m.status}">${m.status}</span></td>
       <td>${paySection}</td>
-      <td>
-        <div class="rowbtns">
-          <button class="iconbtn" title="Aprovar" onclick="adminSetStatus('${m.id}','aprovada')">✓</button>
-          <button class="iconbtn" title="Rejeitar" onclick="adminSetStatus('${m.id}','rejeitada')">✕</button>
-          <button class="iconbtn" title="Excluir" onclick="adminDelete('${m.id}')">🗑</button>
-        </div>
-      </td>
+      <td><div class="rowbtns">
+        <button class="iconbtn" title="Aprovar" onclick="adminSetStatus('${m.id}','aprovada')">✓</button>
+        <button class="iconbtn" title="Rejeitar" onclick="adminSetStatus('${m.id}','rejeitada')">✕</button>
+        <button class="iconbtn" title="Excluir" onclick="adminDelete('${m.id}')">🗑</button>
+      </div></td>
     </tr>`;}).join('');
 }
-window.adminSetStatus = async function(id, status){
-  try{ await DB.updateStatus(id, status); toast('Status atualizado'); renderAdmin(); }
-  catch(e){ toast('Erro ao atualizar', 'err'); }
-};
-window.adminDelete = async function(id){
-  try{ await DB.remove(id); toast('Mensagem excluída'); renderAdmin(); }
-  catch(e){ toast('Erro ao excluir', 'err'); }
-};
-window.adminMarkPaid = async function(id){
-  try{ await DB.updatePayment(id, 'pago'); toast('Pagamento confirmado 💎'); renderAdmin(); }
-  catch(e){ toast('Erro ao atualizar pagamento', 'err'); }
-};
+window.adminSetStatus = async function(id, status){ try{ await DB.updateStatus(id, status); toast('Status atualizado'); renderAdmin(); }catch(e){ toast('Erro ao atualizar: ' + e.message, 'err'); } };
+window.adminDelete = async function(id){ try{ await DB.remove(id); toast('Mensagem excluída'); renderAdmin(); }catch(e){ toast('Erro ao excluir: ' + e.message, 'err'); } };
+window.adminMarkPaid = async function(id){ try{ await DB.updatePayment(id, 'pago'); toast('Pagamento confirmado 💎'); renderAdmin(); }catch(e){ toast('Erro ao atualizar pagamento: ' + e.message, 'err'); } };
 window.adminCopyLink = async function(id){
   const m = adminData.find(x=>x.id===id);
   if(!m || !m.link_pagamento){ toast('Nenhum link disponível', 'err'); return; }
-  try{ await navigator.clipboard.writeText(m.link_pagamento); toast('Link de pagamento copiado'); }
-  catch(e){ toast(m.link_pagamento); }
+  try{ await navigator.clipboard.writeText(m.link_pagamento); toast('Link de pagamento copiado'); }catch(e){ toast(m.link_pagamento); }
+};
+window.exportCSV = function(){
+  if(!adminData.length){ toast('Nada para exportar ainda', 'err'); return; }
+  const cols = ['criado_em','remetente_nome','remetente_turma','destinatario_nome','destinatario_turma','mensagem','anonimo','envelope_estilo','status','plano','valor','pagamento_status','curtidas'];
+  const rows = [cols.join(',')].concat(adminData.map(m => cols.map(c => '"' + String(m[c]==null?'':m[c]).replace(/"/g,'""') + '"').join(',')));
+  const blob = new Blob([rows.join('\n')], {type:'text/csv;charset=utf-8;'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'bilhetes_correio_elegante.csv'; a.click();
 };
 
-/* ===================== CONFIG ===================== */
-function prefillConfigForm(){
-  document.getElementById('cfgSchoolName').value = CFG.schoolName || '';
-  document.getElementById('cfgUrl').value = CFG.url || '';
-  document.getElementById('cfgKey').value = CFG.key || '';
-  document.getElementById('cfgPass').value = CFG.adminPass || '';
-  document.getElementById('cfgStripeLink').value = CFG.stripeLink || '';
-  document.getElementById('cfgStripePrice').value = CFG.stripePrice || '';
-  updateStripeTag();
-}
-function updateStripeTag(){
-  const tag = document.getElementById('stripeTag');
-  const txt = document.getElementById('stripeTagText');
-  if(CFG.stripeLink){ tag.classList.add('live'); txt.textContent = 'Stripe configurado'; }
-  else { tag.classList.remove('live'); txt.textContent = 'Stripe não configurado (modo demo)'; }
-}
-window.saveConfig = async function(){
-  CFG = {
-    schoolName: document.getElementById('cfgSchoolName').value.trim(),
-    url: document.getElementById('cfgUrl').value.trim(),
-    key: document.getElementById('cfgKey').value.trim(),
-    adminPass: document.getElementById('cfgPass').value.trim() || 'escola123',
-    stripeLink: document.getElementById('cfgStripeLink').value.trim(),
-    stripePrice: document.getElementById('cfgStripePrice').value.trim() || '5'
-  };
-  localStorage.setItem(LS_CFG, JSON.stringify(CFG));
-  applySchoolName();
-  refreshPremiumPriceTag();
-  updateStripeTag();
-  toast('Configuração salva. Conectando…');
+/* ===================== conexão (Admin) ===================== */
+window.saveConnectionConfig = async function(){
+  CONN = { url: document.getElementById('cfgUrl').value.trim(), key: document.getElementById('cfgKey').value.trim() };
+  localStorage.setItem(LS_CONN, JSON.stringify(CONN));
+  const demo = loadDemoSettings(); demo.adminPass = document.getElementById('cfgPass').value.trim() || 'escola123';
+  localStorage.setItem(LS_DEMO, JSON.stringify(demo));
+  toast('Conexão salva. Testando…');
   await initSupabase();
-  renderMural();
-  if(adminAuthed) renderAdmin();
+  if(LIVE){ SETTINGS = await DB.getSettings(); applySharedSettingsToUI(); }
+  renderMural(); if(ADMIN_OK) renderAdmin();
 };
-window.clearConfig = function(){
-  const keep = { schoolName: CFG.schoolName, adminPass: CFG.adminPass, stripeLink: CFG.stripeLink, stripePrice: CFG.stripePrice };
-  CFG = keep;
-  localStorage.setItem(LS_CFG, JSON.stringify(CFG));
-  supabase = null; LIVE = false;
-  updateModeTag();
-  prefillConfigForm();
-  toast('Voltou ao modo demonstração local');
-  renderMural();
-  if(adminAuthed) renderAdmin();
+window.clearConnectionConfig = function(){
+  CONN = {}; localStorage.removeItem(LS_CONN); supabase = null; LIVE = false; CONN_ERROR=''; SESSION=null; ADMIN_OK=false;
+  updateModeTag(); renderConnError(); renderAdminGateState();
+  SETTINGS = loadDemoSettings(); applySharedSettingsToUI();
+  toast('Voltou ao modo demonstração local'); renderMural();
 };
-function applySchoolName(){
-  const name = CFG.schoolName || 'Nossa Escola';
-  document.getElementById('schoolNameTag').textContent = name;
-}
 
 document.getElementById('sqlBlock').textContent =
-`create extension if not exists pgcrypto;
+`-- ============================================================
+-- CORREIO ELEGANTE — script completo (cole tudo de uma vez no
+-- SQL Editor do Supabase e clique em "Run")
+-- ============================================================
+create extension if not exists pgcrypto;
 
-create table mensagens (
+-- tabela principal de bilhetes ---------------------------------
+create table if not exists mensagens (
   id uuid primary key default gen_random_uuid(),
   criado_em timestamptz default now(),
   remetente_nome text not null,
@@ -1480,43 +1402,105 @@ create table mensagens (
   plano text default 'gratuito',
   valor numeric default 0,
   pagamento_status text default 'gratuito',
-  link_pagamento text
+  link_pagamento text,
+  curtidas int default 0
 );
-
 alter table mensagens enable row level security;
+drop policy if exists "insercao_publica" on mensagens;
+create policy "insercao_publica" on mensagens for insert to anon, authenticated with check (true);
+drop policy if exists "leitura_aprovadas_ou_admin" on mensagens;
+create policy "leitura_aprovadas_ou_admin" on mensagens for select to anon, authenticated using ( status = 'aprovada' or auth.role() = 'authenticated' );
+drop policy if exists "atualizacao_admin" on mensagens;
+create policy "atualizacao_admin" on mensagens for update to authenticated using (true) with check (true);
+drop policy if exists "exclusao_admin" on mensagens;
+create policy "exclusao_admin" on mensagens for delete to authenticated using (true);
 
--- qualquer visitante pode enviar um bilhete
-create policy "insercao_publica" on mensagens
-  for insert with check (true);
+-- configurações compartilhadas do site --------------------------
+create table if not exists configuracoes (
+  id int primary key default 1,
+  nome_escola text default 'Nossa Escola',
+  stripe_link text default '',
+  stripe_price numeric default 5,
+  bilhetes_gratis_ativos boolean default true,
+  limite_gratis_diario int default 0,
+  atualizado_em timestamptz default now()
+);
+insert into configuracoes (id) values (1) on conflict (id) do nothing;
+alter table configuracoes enable row level security;
+drop policy if exists "leitura_publica_config" on configuracoes;
+create policy "leitura_publica_config" on configuracoes for select to anon, authenticated using (true);
+drop policy if exists "escrita_admin_config" on configuracoes;
+create policy "escrita_admin_config" on configuracoes for update to authenticated using (true) with check (true);
 
--- qualquer visitante pode ler (o app filtra por status/destinatário)
-create policy "leitura_publica" on mensagens
-  for select using (true);
+-- tabela de administradores (populada por gatilho) ---------------
+create table if not exists admins (
+  id uuid primary key references auth.users(id) on delete cascade,
+  email text,
+  criado_em timestamptz default now()
+);
+alter table admins enable row level security;
+drop policy if exists "leitura_admins" on admins;
+create policy "leitura_admins" on admins for select to authenticated using (true);
 
--- em produção, restrinja update/delete a um usuário autenticado (admin),
--- por exemplo usando Supabase Auth + checar auth.uid() numa tabela de admins.
-create policy "atualizacao_demo" on mensagens
-  for update using (true);
+create or replace function handle_new_admin()
+returns trigger language plpgsql security definer as $$
+begin
+  insert into public.admins (id, email) values (new.id, new.email);
+  return new;
+end;
+$$;
+drop trigger if exists on_auth_user_created on auth.users;
+create trigger on_auth_user_created after insert on auth.users
+  for each row execute procedure handle_new_admin();
 
-create policy "exclusao_demo" on mensagens
-  for delete using (true);`;
+-- código de convite (protegido — só a função abaixo consegue ler) --
+create table if not exists admin_convites (
+  id int primary key default 1,
+  codigo text not null
+);
+insert into admin_convites (id, codigo) values (1, 'TROQUE-ESTE-CODIGO') on conflict (id) do nothing;
+alter table admin_convites enable row level security;
+-- nenhuma policy aqui de propósito: ninguém lê essa tabela direto,
+-- só a função abaixo (que roda com privilégio elevado).
 
-/* ===================== BOOT ===================== */
+create or replace function verificar_convite(tentativa text)
+returns boolean language sql security definer as $$
+  select exists(select 1 from admin_convites where id=1 and codigo = tentativa);
+$$;
+grant execute on function verificar_convite(text) to anon, authenticated;
+
+-- curtidas públicas, sem abrir a tabela toda para escrita anônima --
+create or replace function incrementar_curtida(msg_id uuid)
+returns void language sql security definer as $$
+  update mensagens set curtidas = curtidas + 1 where id = msg_id;
+$$;
+grant execute on function incrementar_curtida(uuid) to anon, authenticated;
+
+-- realtime (mural ao vivo, configurações ao vivo, presença) --------
+alter publication supabase_realtime add table mensagens;
+alter publication supabase_realtime add table configuracoes;
+
+-- lembrete: depois de criar sua conta admin, rode
+-- update admin_convites set codigo = 'um-codigo-novo-e-secreto' where id = 1;
+-- e, em Authentication → Settings, desative cadastros públicos por e-mail
+-- (assim ninguém cria conta sem o convite, mesmo por fora deste site).`;
+
+/* ===================== boot ===================== */
 (async function boot(){
   refreshIdentityPill();
-  applySchoolName();
-  refreshPremiumPriceTag();
-  initMailboxCount();
   const id = getIdentity();
   if(id){
-    document.getElementById('fRemetenteNome').value = id.nome;
-    document.getElementById('fRemetenteTurma').value = id.turma||'';
-    document.getElementById('lookupNome').value = id.nome;
-    document.getElementById('lookupTurma').value = id.turma||'';
+    document.getElementById('fRemetenteNome').value = id.nome; document.getElementById('fRemetenteTurma').value = id.turma||'';
+    document.getElementById('lookupNome').value = id.nome; document.getElementById('lookupTurma').value = id.turma||'';
   } else {
     setTimeout(()=> document.getElementById('identityOverlay').classList.add('show'), 700);
   }
+  document.getElementById('cfgUrl').value = connUrl();
+  document.getElementById('cfgKey').value = connKey();
   await initSupabase();
+  if(LIVE){ SETTINGS = await DB.getSettings().catch(()=>SETTINGS); }
+  applySharedSettingsToUI();
+  renderAdminGateState();
   renderMural();
 })();
 </script>
